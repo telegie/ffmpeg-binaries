@@ -22,3 +22,16 @@ https://trac.ffmpeg.org/wiki/CompilationGuide/MinGW
 
 
 bin/libiconv-2.dll is from mingw64/bin. It is needed for using ffmpeg binaires built by mingw64.
+
+
+## WASM using a mac
+
+reference: https://itnext.io/build-ffmpeg-webassembly-version-ffmpeg-js-part-2-compile-with-emscripten-4c581e8c9a16
+
+Install emscripten via source (not brew) following https://emscripten.org/docs/getting_started/downloads.html.
+
+Add $EMSDK_ROOT/upstream/bin to path for llvm-ranlib, llvm-as, llvm-nm
+
+Run scripts/configure-wasm.sh
+
+emmake make -j8
