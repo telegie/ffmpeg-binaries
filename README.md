@@ -12,11 +12,24 @@ https://trac.ffmpeg.org/wiki/CompilationGuide/MSVC
 
 - ../FFmpeg/configure --target-os=mingw64 --arch=x86_64 --enable-shared --prefix=../install
 
+- ../FFmpeg/configure --target-os=mingw64 --arch=x86_64 --enable-shared --prefix=../install --enable-libvpx --extra-cflags="-I /c/tools/msys64/usr/include -I /c/Users/hanseul/repos/telegie/deps/libvpx-binaries/1.10.0/x86_64-win64-gcc/include"
+
+--sysroot=/c/tools/msys64
+
+
+
+- ../FFmpeg/configure --target-os=mingw64 --arch=x86_64 --enable-shared --prefix=../install --enable-libvpx --extra-cflags="-I/c/Users/hanseul/repos/telegie/deps/libvpx-binaries/1.10.0/x86_64-win64-gcc/include" --extra-ldflags="-L/c/Users/hanseul/repos/telegie/deps/libvpx-binaries/1.10.0/x86_64-win64-gcc/lib/x64" --enable-encoder=libvpx_vp8 --enable-decoder=libvpx_vp8
+
+
+
 - make -j8
 
 - make install
 
 
+
+
+bin/libiconv-2.dll is from mingw64/bin.
 
 
 
