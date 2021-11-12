@@ -35,3 +35,9 @@ Add $EMSDK_ROOT/upstream/bin to path for llvm-ranlib, llvm-as, llvm-nm
 Run scripts/configure-wasm.sh
 
 emmake make -j8
+
+## iOS
+
+reference: https://github.com/kewlbear/FFmpeg-iOS-build-script
+
+brew install yasm
