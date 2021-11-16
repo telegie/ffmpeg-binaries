@@ -11,6 +11,6 @@
   --disable-iconv \
   --enable-libvpx \
   --enable-encoder=libvpx_vp8 \
-  --extra-cflags='-I /c/Users/hanseul/repos/telegie/deps/libvpx-binaries/1.10.0/x86_64-win64-gcc/include' \
-  --extra-ldflags='-L /c/Users/hanseul/repos/telegie/deps/libvpx-binaries/1.10.0/x86_64-win64-gcc/lib' \
+  --extra-cflags='-I /c/Users/hanseul/repos/telegie/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/x86_64-win64-gcc/include' \
+  --extra-ldflags='-L /c/Users/hanseul/repos/telegie/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/x86_64-win64-gcc/lib' \
   --prefix=../install
