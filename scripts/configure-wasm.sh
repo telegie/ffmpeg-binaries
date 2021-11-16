@@ -5,6 +5,7 @@
 CFLAGS="-s USE_PTHREADS"
 LDFLAGS="$CFLAGS -s INITIAL_MEMORY=33554432"
 
+# Using --disable-everything to reduce the byte size of the resulting library.
 emconfigure ../FFmpeg/configure \
   --target-os=none \
   --arch=x86_32 \
@@ -24,4 +25,7 @@ emconfigure ../FFmpeg/configure \
   --cxx=em++ \
   --objcc=emcc \
   --dep-cc=emcc \
+  --disable-everything \
+  --enable-decoder=vp8 \
+  --enable-parser=vp8 \
   --prefix=../install
