@@ -29,6 +29,7 @@ CC='xcrun --sdk iphoneos clang'
   --disable-videotoolbox \
   --disable-audiotoolbox \
   --disable-iconv \
+  --enable-libvpx \
   --enable-encoder=libvpx_vp8 \
   --extra-cflags='-mios-version-min=14.0 -I/Users/hanseuljun/repos/telegie/deps/libvpx-binaries/1.10.0/arm64-darwin-gcc/include' \
   --extra-ldflags='-L/Users/hanseuljun/repos/telegie/deps/libvpx-binaries/1.10.0/arm64-darwin-gcc/lib' \

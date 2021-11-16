@@ -42,8 +42,6 @@ reference: https://github.com/kewlbear/FFmpeg-iOS-build-script/blob/master/build
 
 brew install yasm
 
-Install gas-processor from https://github.com/ffmpeg/gas-preprocessor and put gas-processor.pl in somewhere included in PATH.
-
 Run scripts/configure-ios.sh
 
 - make -j8
