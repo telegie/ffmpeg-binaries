@@ -11,9 +11,9 @@ https://trac.ffmpeg.org/wiki/CompilationGuide/MinGW
 
 - Install msys2
 
-- Open mingw64_shell.
+- Open mingw64 shell.
 
-- ../FFmpeg/configure --target-os=mingw64 --arch=x86_64 --enable-shared --prefix=../install --enable-libvpx --enable-encoder=libvpx_vp8 --extra-cflags="-I /c/Users/hanseul/repos/telegie/deps/libvpx-binaries/1.10.0/x86_64-win64-gcc/include" --extra-ldflags="-L /c/Users/hanseul/repos/telegie/deps/libvpx-binaries/1.10.0/x86_64-win64-gcc/lib"
+Run scripts/configure-mingw64.sh
 
 - make -j8
 
