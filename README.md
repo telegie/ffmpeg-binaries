@@ -38,7 +38,7 @@ emmake make -j8
 
 ## iOS
 
-reference: https://github.com/kewlbear/FFmpeg-iOS-build-script
+reference: https://github.com/kewlbear/FFmpeg-iOS-build-script/blob/master/build-ffmpeg.sh
 
 brew install yasm
 
