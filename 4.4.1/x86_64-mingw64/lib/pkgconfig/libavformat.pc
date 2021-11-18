@@ -10,5 +10,5 @@ Requires:
 Requires.private: libavcodec >= 58.134.100, libavutil >= 56.70.100
 Conflicts:
 Libs: -L${libdir}  -lavformat 
-Libs.private: -lm -lsecur32 -lws2_32
+Libs.private: -lm -LC:/tools/msys64/mingw64/lib -lz -lsecur32 -lws2_32
 Cflags: -I${includedir}
