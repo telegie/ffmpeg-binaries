@@ -4,3 +4,6 @@
 [submodule "libvpx-binaries"]
 	path = libvpx-binaries
 	url = git@github.com:telegie/libvpx-binaries.git
+[submodule "opus-binaries"]
+	path = opus-binaries
+	url = git@github.com:telegie/opus-binaries.git
