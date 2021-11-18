@@ -7,8 +7,8 @@ Name: libavcodec
 Description: FFmpeg codec library
 Version: 58.134.100
 Requires: 
-Requires.private: libswresample >= 3.9.100, libavutil >= 56.70.100
+Requires.private: libavutil >= 56.70.100
 Conflicts:
 Libs: -L${libdir}  -lavcodec 
-Libs.private: -lvpx -lm -lvpx -lm -lvpx -lm -lvpx -lm -lm -L/mingw64/lib -lz -lmfplat -lmfuuid -lole32 -lstrmiids -lole32 -luser32
+Libs.private: -lvpx -lm -lvpx -lm -lm -LC:/Users/hanseul/repos/telegie/deps/ffmpeg-binaries/opus-binaries/e4d4b74/x86_64-w64-mingw32/lib -lopus -lole32 -luser32
 Cflags: -I${includedir}
