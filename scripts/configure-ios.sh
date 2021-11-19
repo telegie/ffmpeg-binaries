@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # need to install https://github.com/libav/gas-preprocessor
 
