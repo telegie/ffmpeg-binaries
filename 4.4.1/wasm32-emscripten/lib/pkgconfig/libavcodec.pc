@@ -1,7 +1,7 @@
-prefix=../install
+prefix=../4.4.1/wasm32-emscripten
 exec_prefix=${prefix}
-libdir=../install/lib
-includedir=../install/include
+libdir=../4.4.1/wasm32-emscripten/lib
+includedir=../4.4.1/wasm32-emscripten/include
 
 Name: libavcodec
 Description: FFmpeg codec library
@@ -9,6 +9,6 @@ Version: 58.134.100
 Requires: libavutil >= 56.70.100
 Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavcodec -pthread -lm -L/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/opus-binaries/e4d4b74/wasm32-emscripten/lib -lopus
+Libs: -L${libdir}  -lavcodec -lm -L/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/opus-binaries/e4d4b74/wasm32-emscripten/lib -lopus
 Libs.private: 
 Cflags: -I${includedir}

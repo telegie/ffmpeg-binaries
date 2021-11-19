@@ -1,7 +1,7 @@
-prefix=../install
+prefix=../4.4.1/wasm32-emscripten
 exec_prefix=${prefix}
-libdir=../install/lib
-includedir=../install/include
+libdir=../4.4.1/wasm32-emscripten/lib
+includedir=../4.4.1/wasm32-emscripten/include
 
 Name: libswscale
 Description: FFmpeg image rescaling library

@@ -1,7 +1,7 @@
-prefix=../install
+prefix=../4.4.1/wasm32-emscripten
 exec_prefix=${prefix}
-libdir=../install/lib
-includedir=../install/include
+libdir=../4.4.1/wasm32-emscripten/lib
+includedir=../4.4.1/wasm32-emscripten/include
 
 Name: libavutil
 Description: FFmpeg utility library
@@ -9,6 +9,6 @@ Version: 56.70.100
 Requires: 
 Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavutil -pthread -lm
+Libs: -L${libdir}  -lavutil -lm
 Libs.private: 
 Cflags: -I${includedir}

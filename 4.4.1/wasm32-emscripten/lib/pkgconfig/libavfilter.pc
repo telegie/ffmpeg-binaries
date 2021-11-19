@@ -1,7 +1,7 @@
-prefix=../install
+prefix=../4.4.1/wasm32-emscripten
 exec_prefix=${prefix}
-libdir=../install/lib
-includedir=../install/include
+libdir=../4.4.1/wasm32-emscripten/lib
+includedir=../4.4.1/wasm32-emscripten/include
 
 Name: libavfilter
 Description: FFmpeg audio/video filtering library
@@ -9,6 +9,6 @@ Version: 7.110.100
 Requires: libavutil >= 56.70.100
 Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavfilter -pthread -lm
+Libs: -L${libdir}  -lavfilter -lm
 Libs.private: 
 Cflags: -I${includedir}
