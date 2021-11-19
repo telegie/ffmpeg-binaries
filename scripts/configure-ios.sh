@@ -14,6 +14,7 @@ then
 fi
 
 CC='xcrun --sdk iphoneos clang'
+PKG_CONFIG_PATH="/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/opus-binaries/e4d4b74/arm64-ios/lib/pkgconfig"
 
 ../FFmpeg/configure \
   --target-os=darwin \
@@ -30,7 +31,12 @@ CC='xcrun --sdk iphoneos clang'
   --disable-audiotoolbox \
   --disable-iconv \
   --enable-libvpx \
-  --enable-encoder=libvpx_vp8 \
+  --enable-libopus \
+  --enable-encoder=libvpx_vp8,libvpx_vp9,libopus \
+  --enable-decoder=vp8,vp9,libopus \
+  --disable-encoder=opus \
+  --disable-decoder=libvpx_vp8,libvpx_vp9,opus \
   --extra-cflags='-mios-version-min=14.0 -I/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/arm64-darwin-gcc/include' \
   --extra-ldflags='-L/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/arm64-darwin-gcc/lib' \
+  --env="PKG_CONFIG_PATH=$PKG_CONFIG_PATH" \
   --prefix=../install
