@@ -13,7 +13,7 @@ https://trac.ffmpeg.org/wiki/CompilationGuide/MinGW
 
 - Open mingw64 shell.
 
-Run scripts/configure-mingw64.sh
+Run scripts/configure-windows.sh
 
 - make -j8
 

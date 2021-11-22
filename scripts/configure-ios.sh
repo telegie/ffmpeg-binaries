@@ -36,7 +36,7 @@ PKG_CONFIG_PATH="/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/opus-binar
   --enable-decoder=vp8,vp9,libopus \
   --disable-encoder=opus \
   --disable-decoder=libvpx_vp8,libvpx_vp9,opus \
-  --extra-cflags='-mios-version-min=14.0 -I/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/arm64-darwin-gcc/include' \
-  --extra-ldflags='-L/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/arm64-darwin-gcc/lib' \
+  --extra-cflags='-mios-version-min=14.0 -I/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/arm64-ios/include' \
+  --extra-ldflags='-L/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/arm64-ios/lib' \
   --env="PKG_CONFIG_PATH=$PKG_CONFIG_PATH" \
   --prefix=../install
