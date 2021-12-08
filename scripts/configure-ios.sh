@@ -39,4 +39,4 @@ PKG_CONFIG_PATH="/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/opus-binar
   --extra-cflags='-mios-version-min=14.0 -I/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/arm64-ios/include' \
   --extra-ldflags='-L/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/arm64-ios/lib' \
   --env="PKG_CONFIG_PATH=$PKG_CONFIG_PATH" \
-  --prefix=../install
+  --prefix=../4.4.1/arm64-ios
