@@ -37,8 +37,16 @@ reference: https://github.com/kewlbear/FFmpeg-iOS-build-script/blob/master/build
 
 brew install yasm
 
-Run scripts/configure-ios.sh
+- mkdir build
+
+- cd build
+
+- ../scripts/configure-ios.sh
 
 - make -j8
 
 - make install
+
+## Mac
+
+Same as iOS, but with its own configure .sh file.

@@ -1,0 +1,14 @@
+prefix=../4.4.1/arm64-mac
+exec_prefix=${prefix}
+libdir=../4.4.1/arm64-mac/lib
+includedir=../4.4.1/arm64-mac/include
+
+Name: libavformat
+Description: FFmpeg container format library
+Version: 58.76.100
+Requires: libavcodec >= 58.134.100, libavutil >= 56.70.100
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavformat -lm -lbz2 -lz -Wl,-framework,CoreFoundation -Wl,-framework,Security
+Libs.private: 
+Cflags: -I${includedir}

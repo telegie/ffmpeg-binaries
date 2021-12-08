@@ -1,0 +1,14 @@
+prefix=../4.4.1/arm64-mac
+exec_prefix=${prefix}
+libdir=../4.4.1/arm64-mac/lib
+includedir=../4.4.1/arm64-mac/include
+
+Name: libswresample
+Description: FFmpeg audio resampling library
+Version: 3.9.100
+Requires: libavutil >= 56.70.100
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lswresample -lm
+Libs.private: 
+Cflags: -I${includedir}
