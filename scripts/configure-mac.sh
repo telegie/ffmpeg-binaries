@@ -8,6 +8,7 @@ PKG_CONFIG_PATH="/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/opus-binar
   --disable-debug \
   --disable-programs \
   --disable-doc \
+  --disable-videotoolbox \
   --enable-libvpx \
   --enable-libopus \
   --enable-encoder=libvpx_vp8,libvpx_vp9,libopus \
