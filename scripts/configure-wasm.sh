@@ -32,6 +32,5 @@ emconfigure ../FFmpeg/configure \
   --enable-decoder=vp8,libopus \
   --enable-parser=vp8,opus \
   --extra-ldflags="$LDFLAGS" \
-  #--env="PKG_CONFIG_PATH=$PKG_CONFIG_PATH" \
-  PKG_CONFIG_PATH="$PKG_CONFIG_PATH" \
+  --env="PKG_CONFIG_PATH=$PKG_CONFIG_PATH" \
   --prefix=../4.4.1/wasm32-emscripten
