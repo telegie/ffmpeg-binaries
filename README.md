@@ -21,13 +21,13 @@ Run scripts/configure-windows.sh
 
 ## WASM using a mac
 
-reference: https://itnext.io/build-ffmpeg-webassembly-version-ffmpeg-js-part-2-compile-with-emscripten-4c581e8c9a16
+brew install emscripten
 
-Install emscripten via source (not brew) following https://emscripten.org/docs/getting_started/downloads.html.
+mkdir build
 
-Add $EMSDK_ROOT/upstream/bin to path for llvm-ranlib, llvm-as, llvm-nm
+cd build
 
-Run scripts/configure-wasm.sh
+Run configure-wasm.sh
 
 emmake make -j8
 

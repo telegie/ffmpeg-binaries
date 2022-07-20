@@ -4,7 +4,9 @@
 
 LDFLAGS="$CFLAGS -s INITIAL_MEMORY=33554432"
 # PKG_CONFIG_PATH as an environment needs to be set this way. Probably because of emconfigure.
-PKG_CONFIG_PATH="/Users/hanseuljun/repos/telegie/deps/ffmpeg-binaries/opus-binaries/e4d4b74/wasm32-emscripten/lib/pkgconfig"
+PKG_CONFIG_PATH="$(pwd)/../opus-binaries/e4d4b74/wasm32-emscripten/lib/pkgconfig"
+# For access to llvm-ranlib, llvm-as, llvm-nm
+PATH=/opt/homebrew/Cellar/emscripten/3.1.16/libexec/llvm/bin/:$PATH
 
 # Using --disable-everything to reduce the byte size of the resulting library.
 # --disable-pthreads is due to the current limitation of ios safari.
@@ -30,5 +32,6 @@ emconfigure ../FFmpeg/configure \
   --enable-decoder=vp8,libopus \
   --enable-parser=vp8,opus \
   --extra-ldflags="$LDFLAGS" \
-  --env="PKG_CONFIG_PATH=$PKG_CONFIG_PATH" \
+  #--env="PKG_CONFIG_PATH=$PKG_CONFIG_PATH" \
+  PKG_CONFIG_PATH="$PKG_CONFIG_PATH" \
   --prefix=../4.4.1/wasm32-emscripten
