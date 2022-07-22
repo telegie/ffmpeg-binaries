@@ -50,3 +50,9 @@ brew install yasm
 ## Mac
 
 Same as iOS, but with its own configure .sh file.
+
+## Linux
+
+apt install pkg-config
+
+Same as Mac but with configure-linux.sh

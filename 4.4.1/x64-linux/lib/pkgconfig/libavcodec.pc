@@ -1,0 +1,14 @@
+prefix=../4.4.1/x64-linux
+exec_prefix=${prefix}
+libdir=../4.4.1/x64-linux/lib
+includedir=../4.4.1/x64-linux/include
+
+Name: libavcodec
+Description: FFmpeg codec library
+Version: 58.134.100
+Requires: libavutil >= 56.70.100
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavcodec -lvpx -lm -pthread -lvpx -lm -pthread -pthread -lm -L/root/librgbd/deps/ffmpeg-binaries/opus-binaries/e4d4b74/x64-linux/lib -lopus -lm
+Libs.private: 
+Cflags: -I${includedir}

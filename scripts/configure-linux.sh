@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-PKG_CONFIG_PATH="$(dirname $(pwd))/opus-binaries/e4d4b74/x64-linux/lib/pkgconfig"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$(dirname $(pwd))/opus-binaries/e4d4b74/x64-linux/lib/pkgconfig"
+
+echo "PKG_CONFIG_PATH: ${PKG_CONFIG_PATH}"
+
+pkg-config --exists opus
+echo $?
 
 ../FFmpeg/configure \
   --target-os=linux \
@@ -17,5 +22,5 @@ PKG_CONFIG_PATH="$(dirname $(pwd))/opus-binaries/e4d4b74/x64-linux/lib/pkgconfig
   --disable-decoder=libvpx_vp8,libvpx_vp9,opus \
   --extra-cflags="-I$(dirname $(pwd))/libvpx-binaries/1.10.0/x64-linux/include" \
   --extra-ldflags="-L$(dirname $(pwd))/libvpx-binaries/1.10.0/x64-linux/lib" \
-  --env="PKG_CONFIG_PATH=$PKG_CONFIG_PATH" \
+  --pkg-config-flags="--static" \ #reference: https://stackoverflow.com/questions/28884676/error-installing-ffmpeg-on-ubuntu-opus-not-found-using-pkg-config
   --prefix=../4.4.1/x64-linux
