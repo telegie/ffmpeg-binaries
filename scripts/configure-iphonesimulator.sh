@@ -13,8 +13,8 @@ then
         || exit 1
 fi
 
-CC='xcrun --sdk iphoneos clang'
-PKG_CONFIG_PATH="$(dirname $(pwd))/opus-binaries/e4d4b74/arm64-ios/lib/pkgconfig"
+CC='xcrun --sdk iphonesimulator clang'
+PKG_CONFIG_PATH="$(dirname $(pwd))/opus-binaries/e4d4b74/arm64-iphonesimulator/lib/pkgconfig"
 
 ../FFmpeg/configure \
   --target-os=darwin \
@@ -22,7 +22,7 @@ PKG_CONFIG_PATH="$(dirname $(pwd))/opus-binaries/e4d4b74/arm64-ios/lib/pkgconfig
   --enable-cross-compile \
   --cc="$CC" \
   --as="gas-preprocessor.pl -arch aarch64 -- $CC" \
-  --sysroot=$(xcrun --sdk iphoneos --show-sdk-path) \
+  --sysroot=$(xcrun --sdk iphonesimulator --show-sdk-path) \
   --disable-debug \
   --disable-programs \
   --disable-doc \
@@ -39,4 +39,4 @@ PKG_CONFIG_PATH="$(dirname $(pwd))/opus-binaries/e4d4b74/arm64-ios/lib/pkgconfig
   --extra-cflags="-mios-version-min=14.0 -I$(dirname $(pwd))/libvpx-binaries/1.10.0/arm64-ios/include" \
   --extra-ldflags="-L$(dirname $(pwd))/libvpx-binaries/1.10.0/arm64-ios/lib" \
   --env="PKG_CONFIG_PATH=$PKG_CONFIG_PATH" \
-  --prefix=../4.4.1/arm64-ios
+  --prefix=../4.4.1/arm64-iphonesimulator
