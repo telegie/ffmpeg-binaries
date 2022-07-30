@@ -14,7 +14,7 @@ then
 fi
 
 CC='xcrun --sdk iphonesimulator clang'
-PKG_CONFIG_PATH="$(dirname $(pwd))/opus-binaries/e4d4b74/arm64-iphonesimulator/lib/pkgconfig"
+PKG_CONFIG_PATH="$(dirname $(pwd))/libvpx-binaries/1.10.0/arm64-iphonesimulator/lib/pkgconfig:$(dirname $(pwd))/opus-binaries/e4d4b74/arm64-iphonesimulator/lib/pkgconfig"
 
 ../FFmpeg/configure \
   --target-os=darwin \
@@ -36,7 +36,6 @@ PKG_CONFIG_PATH="$(dirname $(pwd))/opus-binaries/e4d4b74/arm64-iphonesimulator/l
   --enable-decoder=vp8,vp9,libopus \
   --disable-encoder=opus \
   --disable-decoder=libvpx_vp8,libvpx_vp9,opus \
-  --extra-cflags="-mios-version-min=14.0 -I$(dirname $(pwd))/libvpx-binaries/1.10.0/arm64-ios/include" \
-  --extra-ldflags="-L$(dirname $(pwd))/libvpx-binaries/1.10.0/arm64-ios/lib" \
+  --extra-cflags="-miphonesimulator-version-min=14.0" \
   --env="PKG_CONFIG_PATH=$PKG_CONFIG_PATH" \
   --prefix=../4.4.1/arm64-iphonesimulator

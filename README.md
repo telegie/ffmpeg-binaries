@@ -47,6 +47,10 @@ brew install yasm
 
 - make install
 
+## iPhone Simulator
+
+Same as iOS, but with its own configure .sh file.
+
 ## Mac
 
 Same as iOS, but with its own configure .sh file.
