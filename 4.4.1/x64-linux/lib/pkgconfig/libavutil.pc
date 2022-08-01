@@ -1,7 +1,7 @@
-prefix=../4.4.1/x64-linux
+prefix=/root/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux
 exec_prefix=${prefix}
-libdir=../4.4.1/x64-linux/lib
-includedir=../4.4.1/x64-linux/include
+libdir=/root/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux/lib
+includedir=/root/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux/include
 
 Name: libavutil
 Description: FFmpeg utility library
