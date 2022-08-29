@@ -1,7 +1,7 @@
-prefix=/root/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux
+prefix=/root/pyrgbd3/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux
 exec_prefix=${prefix}
-libdir=/root/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux/lib
-includedir=/root/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux/include
+libdir=/root/pyrgbd3/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux/lib
+includedir=/root/pyrgbd3/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux/include
 
 Name: libavfilter
 Description: FFmpeg audio/video filtering library

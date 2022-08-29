@@ -1,7 +1,7 @@
-prefix=/root/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux
+prefix=/root/pyrgbd3/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux
 exec_prefix=${prefix}
-libdir=/root/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux/lib
-includedir=/root/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux/include
+libdir=/root/pyrgbd3/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux/lib
+includedir=/root/pyrgbd3/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux/include
 
 Name: libavcodec
 Description: FFmpeg codec library
@@ -9,6 +9,6 @@ Version: 58.134.100
 Requires: libavutil >= 56.70.100
 Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavcodec -L/root/librgbd-binaries/librgbd/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/x64-linux/lib -lvpx -lm -lpthread -L/root/librgbd-binaries/librgbd/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/x64-linux/lib -lvpx -lm -lpthread -pthread -lm -L/root/librgbd-binaries/librgbd/deps/ffmpeg-binaries/opus-binaries/e4d4b74/x64-linux/lib -lopus -lm
+Libs: -L${libdir}  -lavcodec -L/root/pyrgbd3/librgbd-binaries/librgbd/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/x64-linux/lib -lvpx -lm -lpthread -L/root/pyrgbd3/librgbd-binaries/librgbd/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/x64-linux/lib -lvpx -lm -lpthread -pthread -lm -lz -L/root/pyrgbd3/librgbd-binaries/librgbd/deps/ffmpeg-binaries/opus-binaries/e4d4b74/x64-linux/lib -lopus -lm
 Libs.private: 
 Cflags: -I${includedir}
