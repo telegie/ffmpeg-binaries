@@ -26,16 +26,6 @@ def download_gas_preprocessor():
     return build_path
 
 
-def build_libvpx():
-    here = Path(__file__).parent.resolve()
-    subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"], check=True)
-
-
-def build_opus():
-    here = Path(__file__).parent.resolve()
-    subprocess.run(["python3", f"{here}/opus-binaries/build.py"], check=True)
-
-
 def build_arm64_mac_binaries():
     here = Path(__file__).parent.resolve()
     build_path = f"{here}/build/arm64-mac"
@@ -88,7 +78,7 @@ def build_arm64_ios_binaries():
                                    "--show-sdk-path"],
                                   capture_output=True,
                                   check=True)
-    iphone_sdk_path = xcrun_output.stdout.decode("utf-8")
+    iphone_sdk_path = xcrun_output.stdout.decode("utf-8").strip()
 
     subprocess.run([f"{here}/FFmpeg/configure",
                     "--target-os=darwin",
@@ -141,7 +131,7 @@ def build_arm64_iphonesimulator_binaries():
                                    "--show-sdk-path"],
                                   capture_output=True,
                                   check=True)
-    iphonesimulator_sdk_path = xcrun_output.stdout.decode("utf-8")
+    iphonesimulator_sdk_path = xcrun_output.stdout.decode("utf-8").strip()
 
     subprocess.run([f"{here}/FFmpeg/configure",
                     "--target-os=darwin",
@@ -175,8 +165,9 @@ def build_arm64_iphonesimulator_binaries():
 
 
 def main():
-    build_libvpx()
-    build_opus()
+    here = Path(__file__).parent.resolve()
+    subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"], check=True)
+    subprocess.run(["python3", f"{here}/opus-binaries/build.py"], check=True)
 
     if platform.system() == "Darwin":
         if platform.machine() == "arm64":
