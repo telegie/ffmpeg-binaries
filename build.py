@@ -79,7 +79,9 @@ def build_arm64_ios_binaries():
     path = f"{gas_preprocessor_dir}:{path}"
 
     cc = "xcrun --sdk iphoneos clang"
-    pkg_config_path=f"{here}/opus-binaries/install/arm64-ios/lib/pkgconfig"
+    libvpx_pkgconfig = f"{here}/libvpx-binaries/install/arm64-ios/lib/pkgconfig"
+    opus_pkgconfig = f"{here}/opus-binaries/install/arm64-ios/lib/pkgconfig"
+    pkg_config_path=f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     xcrun_output = subprocess.run(["xcrun",
                                    "--sdk", "iphoneos",
@@ -107,8 +109,6 @@ def build_arm64_ios_binaries():
                     "--enable-decoder=vp8,vp9,libopus",
                     "--disable-encoder=opus",
                     "--disable-decoder=libvpx_vp8,libvpx_vp9,opus",
-                    f"--extra-cflags=-I{here}/libvpx-binaries/install/arm64-ios/include",
-                    f"--extra-ldflags=-L{here}/libvpx-binaries/install/arm64-ios/lib",
                     f"--env=PKG_CONFIG_PATH={pkg_config_path}",
                     f"--prefix={here}/install/arm64-ios"],
                    cwd=build_path,
@@ -119,14 +119,68 @@ def build_arm64_ios_binaries():
     subprocess.run(["make", "-C", build_path, "install"], check=True)
 
 
+def build_arm64_iphonesimulator_binaries():
+    here = Path(__file__).parent.resolve()
+    build_path = f"{here}/build/arm64-iphonesimulator"
+    if not os.path.exists(build_path):
+        os.makedirs(build_path)
+
+    gas_preprocessor_dir = download_gas_preprocessor()
+    env = os.environ.copy()
+    path = env["PATH"]
+    path = f"{gas_preprocessor_dir}:{path}"
+
+    cc = "xcrun --sdk iphonesimulator clang"
+    libvpx_pkgconfig = f"{here}/libvpx-binaries/install/arm64-iphonesimulator/lib/pkgconfig"
+    opus_pkgconfig = f"{here}/opus-binaries/install/arm64-iphonesimulator/lib/pkgconfig"
+    pkg_config_path=f"{libvpx_pkgconfig}:{opus_pkgconfig}"
+
+    xcrun_output = subprocess.run(["xcrun",
+                                   "--sdk", "iphonesimulator",
+                                   "--show-sdk-path"],
+                                  capture_output=True,
+                                  check=True)
+    iphonesimulator_sdk_path = xcrun_output.stdout.decode("utf-8")
+
+    subprocess.run([f"{here}/FFmpeg/configure",
+                    "--target-os=darwin",
+                    "--arch=arm64",
+                    "--enable-cross-compile",
+                    f"--cc={cc}",
+                    f"--as=gas-preprocessor.pl -arch aarch64 -- {cc}",
+                    f"--sysroot={iphonesimulator_sdk_path}",
+                    "--disable-debug",
+                    "--disable-programs",
+                    "--disable-doc",
+                    "--enable-pic",
+                    "--disable-videotoolbox",
+                    "--disable-audiotoolbox",
+                    "--disable-iconv",
+                    "--enable-libvpx",
+                    "--enable-libopus",
+                    "--enable-encoder=libvpx_vp8,libvpx_vp9,libopus",
+                    "--enable-decoder=vp8,vp9,libopus",
+                    "--disable-encoder=opus",
+                    "--disable-decoder=libvpx_vp8,libvpx_vp9,opus",
+                    f"--env=PKG_CONFIG_PATH={pkg_config_path}",
+                    f"--prefix={here}/install/arm64-iphonesimulator"],
+                   cwd=build_path,
+                   check=True,
+                   env={"PATH": path})
+
+    subprocess.run(["make", "-C", build_path, "-j8"], check=True, env={"PATH": path})
+    subprocess.run(["make", "-C", build_path, "install"], check=True)
+
+
 def main():
-    # build_libvpx()
-    # build_opus()
+    build_libvpx()
+    build_opus()
 
     if platform.system() == "Darwin":
         if platform.machine() == "arm64":
-            # build_arm64_mac_binaries()
+            build_arm64_mac_binaries()
             build_arm64_ios_binaries()
+            build_arm64_iphonesimulator_binaries()
             return
 
     raise Exception(f"ffmpeg build not supported.")
