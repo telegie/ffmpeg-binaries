@@ -42,7 +42,9 @@ def build_arm64_mac_binaries():
     if not os.path.exists(build_path):
         os.makedirs(build_path)
 
-    pkg_config_path=f"{here}/opus-binaries/install/arm64-mac/lib/pkgconfig"
+    libvpx_pkgconfig = f"{here}/libvpx-binaries/install/arm64-mac/lib/pkgconfig"
+    opus_pkgconfig = f"{here}/opus-binaries/install/arm64-mac/lib/pkgconfig"
+    pkg_config_path=f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     subprocess.run([f"{here}/FFmpeg/configure",
                     "--target-os=darwin",
@@ -57,8 +59,6 @@ def build_arm64_mac_binaries():
                     "--enable-decoder=vp8,vp9,libopus",
                     "--disable-encoder=opus",
                     "--disable-decoder=libvpx_vp8,libvpx_vp9,opus",
-                    f"--extra-cflags=-I{here}/libvpx-binaries/1.10.0/arm64-mac/include",
-                    f"--extra-ldflags=-L{here}/libvpx-binaries/1.10.0/arm64-mac/lib",
                     f"--env=PKG_CONFIG_PATH={pkg_config_path}",
                     f"--prefix={here}/install/arm64-mac"],
                    cwd=build_path,
