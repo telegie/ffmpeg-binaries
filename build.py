@@ -57,6 +57,38 @@ def build_arm64_mac_binaries():
     subprocess.run(["make", "-C", build_path, "install"], check=True)
 
 
+def build_x64_mac_binaries():
+    here = Path(__file__).parent.resolve()
+    build_path = f"{here}/build/x64-mac"
+    if not os.path.exists(build_path):
+        os.makedirs(build_path)
+
+    libvpx_pkgconfig = f"{here}/libvpx-binaries/install/x64-mac/lib/pkgconfig"
+    opus_pkgconfig = f"{here}/opus-binaries/install/x64-mac/lib/pkgconfig"
+    pkg_config_path=f"{libvpx_pkgconfig}:{opus_pkgconfig}"
+    print(f"pkg_config_path: {pkg_config_path}")
+
+    subprocess.run([f"{here}/FFmpeg/configure",
+                    "--target-os=darwin",
+                    "--arch=x86_64",
+                    "--disable-debug",
+                    "--disable-programs",
+                    "--disable-doc",
+                    "--disable-videotoolbox",
+                    "--enable-libvpx",
+                    "--enable-libopus",
+                    "--enable-encoder=libvpx_vp8,libvpx_vp9,libopus",
+                    "--enable-decoder=vp8,vp9,libopus",
+                    "--disable-encoder=opus",
+                    "--disable-decoder=libvpx_vp8,libvpx_vp9,opus",
+                    f"--env=PKG_CONFIG_PATH={pkg_config_path}",
+                    f"--prefix={here}/install/x64-mac"],
+                   cwd=build_path,
+                   check=True)
+    subprocess.run(["make", "-C", build_path, "-j8"], check=True)
+    subprocess.run(["make", "-C", build_path, "install"], check=True)
+
+
 def build_arm64_ios_binaries():
     here = Path(__file__).parent.resolve()
     build_path = f"{here}/build/arm64-ios"
@@ -170,11 +202,11 @@ def main():
     subprocess.run(["python3", f"{here}/opus-binaries/build.py"], check=True)
 
     if platform.system() == "Darwin":
-        if platform.machine() == "arm64":
-            build_arm64_mac_binaries()
-            build_arm64_ios_binaries()
-            build_arm64_iphonesimulator_binaries()
-            return
+        build_arm64_mac_binaries()
+        # build_x64_mac_binaries()
+        build_arm64_ios_binaries()
+        build_arm64_iphonesimulator_binaries()
+        return
 
     raise Exception(f"ffmpeg build not supported.")
 
