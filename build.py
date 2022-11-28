@@ -34,6 +34,7 @@ def build_arm64_mac_binaries():
 
     libvpx_pkgconfig = f"{here}/libvpx-binaries/install/arm64-mac/lib/pkgconfig"
     opus_pkgconfig = f"{here}/opus-binaries/install/arm64-mac/lib/pkgconfig"
+    print(f"libvpx_pkgconfig: {libvpx_pkgconfig}")
     pkg_config_path=f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     subprocess.run([f"{here}/FFmpeg/configure",
@@ -66,11 +67,11 @@ def build_x64_mac_binaries():
     libvpx_pkgconfig = f"{here}/libvpx-binaries/install/x64-mac/lib/pkgconfig"
     opus_pkgconfig = f"{here}/opus-binaries/install/x64-mac/lib/pkgconfig"
     pkg_config_path=f"{libvpx_pkgconfig}:{opus_pkgconfig}"
-    print(f"pkg_config_path: {pkg_config_path}")
 
     subprocess.run([f"{here}/FFmpeg/configure",
                     "--target-os=darwin",
                     "--arch=x86_64",
+                    "--enable-cross-compile",
                     "--disable-debug",
                     "--disable-programs",
                     "--disable-doc",
@@ -81,6 +82,8 @@ def build_x64_mac_binaries():
                     "--enable-decoder=vp8,vp9,libopus",
                     "--disable-encoder=opus",
                     "--disable-decoder=libvpx_vp8,libvpx_vp9,opus",
+                    "--extra-cflags=-arch x86_64",
+                    "--extra-ldflags=-arch x86_64",
                     f"--env=PKG_CONFIG_PATH={pkg_config_path}",
                     f"--prefix={here}/install/x64-mac"],
                    cwd=build_path,
@@ -203,7 +206,7 @@ def main():
 
     if platform.system() == "Darwin":
         build_arm64_mac_binaries()
-        # build_x64_mac_binaries()
+        build_x64_mac_binaries()
         build_arm64_ios_binaries()
         build_arm64_iphonesimulator_binaries()
         return
