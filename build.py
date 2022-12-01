@@ -199,6 +199,39 @@ def build_arm64_iphonesimulator_binaries():
     subprocess.run(["make", "-C", build_path, "install"], check=True)
 
 
+def build_x64_linux_binaries():
+    here = Path(__file__).parent.resolve()
+    build_path = f"{here}/build/x64-linux"
+    if not os.path.exists(build_path):
+        os.makedirs(build_path)
+
+    libvpx_pkgconfig = f"{here}/libvpx-binaries/install/x64-linux/lib/pkgconfig"
+    opus_pkgconfig = f"{here}/opus-binaries/install/x64-linux/lib/pkgconfig"
+    pkg_config_path=f"{libvpx_pkgconfig}:{opus_pkgconfig}"
+
+    subprocess.run([f"{here}/FFmpeg/configure",
+                    "--target-os=linux",
+                    "--arch=x86_64",
+                    "--disable-debug",
+                    "--disable-programs",
+                    "--disable-doc",
+                    "--disable-videotoolbox",
+                    "--enable-libvpx",
+                    "--enable-libopus",
+                    "--enable-encoder=libvpx_vp8,libvpx_vp9,libopus",
+                    "--enable-decoder=vp8,vp9,libopus",
+                    "--disable-encoder=opus",
+                    "--disable-decoder=libvpx_vp8,libvpx_vp9,opus",
+                    "--extra-cflags=-fPIC",
+                    "--pkg-config-flags=--static",
+                    f"--env=PKG_CONFIG_PATH={pkg_config_path}",
+                    f"--prefix={here}/install/x64-linux"],
+                   cwd=build_path,
+                   check=True)
+    subprocess.run(["make", "-C", build_path, "-j8"], check=True)
+    subprocess.run(["make", "-C", build_path, "install"], check=True)
+
+
 def main():
     here = Path(__file__).parent.resolve()
     subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"], check=True)
@@ -209,6 +242,9 @@ def main():
         build_x64_mac_binaries()
         build_arm64_ios_binaries()
         build_arm64_iphonesimulator_binaries()
+        return
+    elif platform.system() == "Linux":
+        build_x64_linux_binaries()
         return
 
     raise Exception(f"ffmpeg build not supported.")
