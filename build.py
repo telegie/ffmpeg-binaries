@@ -34,8 +34,7 @@ def build_arm64_mac_binaries():
 
     libvpx_pkgconfig = f"{here}/libvpx-binaries/install/arm64-mac/lib/pkgconfig"
     opus_pkgconfig = f"{here}/opus-binaries/install/arm64-mac/lib/pkgconfig"
-    print(f"libvpx_pkgconfig: {libvpx_pkgconfig}")
-    pkg_config_path=f"{libvpx_pkgconfig}:{opus_pkgconfig}"
+    pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     subprocess.run([f"{here}/FFmpeg/configure",
                     "--target-os=darwin",
@@ -66,7 +65,7 @@ def build_x64_mac_binaries():
 
     libvpx_pkgconfig = f"{here}/libvpx-binaries/install/x64-mac/lib/pkgconfig"
     opus_pkgconfig = f"{here}/opus-binaries/install/x64-mac/lib/pkgconfig"
-    pkg_config_path=f"{libvpx_pkgconfig}:{opus_pkgconfig}"
+    pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     subprocess.run([f"{here}/FFmpeg/configure",
                     "--target-os=darwin",
@@ -106,7 +105,7 @@ def build_arm64_ios_binaries():
     cc = "xcrun --sdk iphoneos clang"
     libvpx_pkgconfig = f"{here}/libvpx-binaries/install/arm64-ios/lib/pkgconfig"
     opus_pkgconfig = f"{here}/opus-binaries/install/arm64-ios/lib/pkgconfig"
-    pkg_config_path=f"{libvpx_pkgconfig}:{opus_pkgconfig}"
+    pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     xcrun_output = subprocess.run(["xcrun",
                                    "--sdk", "iphoneos",
@@ -159,7 +158,7 @@ def build_arm64_iphonesimulator_binaries():
     cc = "xcrun --sdk iphonesimulator clang"
     libvpx_pkgconfig = f"{here}/libvpx-binaries/install/arm64-iphonesimulator/lib/pkgconfig"
     opus_pkgconfig = f"{here}/opus-binaries/install/arm64-iphonesimulator/lib/pkgconfig"
-    pkg_config_path=f"{libvpx_pkgconfig}:{opus_pkgconfig}"
+    pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     xcrun_output = subprocess.run(["xcrun",
                                    "--sdk", "iphonesimulator",
@@ -207,7 +206,7 @@ def build_x64_linux_binaries():
 
     libvpx_pkgconfig = f"{here}/libvpx-binaries/install/x64-linux/lib/pkgconfig"
     opus_pkgconfig = f"{here}/opus-binaries/install/x64-linux/lib/pkgconfig"
-    pkg_config_path=f"{libvpx_pkgconfig}:{opus_pkgconfig}"
+    pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     subprocess.run([f"{here}/FFmpeg/configure",
                     "--target-os=linux",
