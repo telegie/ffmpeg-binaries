@@ -1,0 +1,14 @@
+prefix=/Users/hanseuljun/repos/telegie-task-processor/pyrgbd/librgbd/deps/ffmpeg-binaries/install/x64-mac
+exec_prefix=${prefix}
+libdir=/Users/hanseuljun/repos/telegie-task-processor/pyrgbd/librgbd/deps/ffmpeg-binaries/install/x64-mac/lib
+includedir=/Users/hanseuljun/repos/telegie-task-processor/pyrgbd/librgbd/deps/ffmpeg-binaries/install/x64-mac/include
+
+Name: libavutil
+Description: FFmpeg utility library
+Version: 56.70.100
+Requires: 
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavutil -pthread -lm -framework CoreFoundation -framework CoreVideo -framework CoreMedia
+Libs.private: 
+Cflags: -I${includedir}

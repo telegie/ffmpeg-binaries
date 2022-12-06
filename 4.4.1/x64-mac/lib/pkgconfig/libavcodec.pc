@@ -1,0 +1,14 @@
+prefix=/Users/hanseuljun/repos/telegie-task-processor/pyrgbd/librgbd/deps/ffmpeg-binaries/install/x64-mac
+exec_prefix=${prefix}
+libdir=/Users/hanseuljun/repos/telegie-task-processor/pyrgbd/librgbd/deps/ffmpeg-binaries/install/x64-mac/lib
+includedir=/Users/hanseuljun/repos/telegie-task-processor/pyrgbd/librgbd/deps/ffmpeg-binaries/install/x64-mac/include
+
+Name: libavcodec
+Description: FFmpeg codec library
+Version: 58.134.100
+Requires: libavutil >= 56.70.100
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavcodec -L/Users/hanseuljun/repos/telegie-task-processor/pyrgbd/librgbd/deps/ffmpeg-binaries/libvpx-binaries/install/x64-mac/lib -lvpx -lm -L/Users/hanseuljun/repos/telegie-task-processor/pyrgbd/librgbd/deps/ffmpeg-binaries/libvpx-binaries/install/x64-mac/lib -lvpx -lm -pthread -liconv -lm -lz -framework AudioToolbox -L/Users/hanseuljun/repos/telegie-task-processor/pyrgbd/librgbd/deps/ffmpeg-binaries/opus-binaries/install/x64-mac/lib -lopus
+Libs.private: 
+Cflags: -I${includedir}
