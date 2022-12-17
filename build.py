@@ -231,16 +231,64 @@ def build_x64_linux_binaries():
     subprocess.run(["make", "-C", build_path, "install"], check=True)
 
 
+def build_wasm32_emscripten_binaries():
+    here = Path(__file__).parent.resolve()
+    build_path = f"{here}/build/wasm32-emscripten"
+    if not os.path.exists(build_path):
+        os.makedirs(build_path)
+
+    llvm_nm = "/opt/homebrew/Cellar/emscripten/3.1.23/libexec/llvm/bin/llvm-nm"
+
+    libvpx_pkgconfig = f"{here}/libvpx-binaries/install/wasm32-emscripten/lib/pkgconfig"
+    # opus_pkgconfig = f"{here}/opus-binaries/install/wasm32-emscripten/lib/pkgconfig"
+    opus_pkgconfig = f"{here}/opus-binaries/e4d4b74/wasm32-emscripten/lib/pkgconfig"
+    pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
+
+    subprocess.run(["emconfigure",
+                    f"{here}/FFmpeg/configure",
+                    "--target-os=none",
+                    "--arch=x86_32",
+                    "--enable-cross-compile",
+                    f"--nm={llvm_nm}",
+                    "--ar=emar",
+                    "--ranlib=emranlib",
+                    "--cc=emcc",
+                    "--cxx=em++",
+                    "--objcc=emcc",
+                    "--dep-cc=emcc",
+                    "--disable-debug",
+                    "--disable-pthreads",
+                    "--disable-x86asm",
+                    "--disable-inline-asm",
+                    "--disable-stripping",
+                    "--disable-programs",
+                    "--disable-doc",
+                    "--enable-libvpx",
+                    "--enable-libopus",
+                    "--enable-encoder=libvpx_vp8,libvpx_vp9,libopus",
+                    "--enable-decoder=vp8,vp9,libopus",
+                    "--disable-encoder=opus",
+                    "--disable-decoder=libvpx_vp8,libvpx_vp9,opus",
+                    "--extra-ldflags=-s INITIAL_MEMORY=33554432",
+                    f"--env=PKG_CONFIG_PATH={pkg_config_path}",
+                    f"--prefix={here}/install/wasm32-emscripten"],
+                   cwd=build_path,
+                   check=True)
+    subprocess.run(["emmake", "make", "-C", build_path, "-j8"], check=True)
+    subprocess.run(["emmake", "make", "-C", build_path, "install"], check=True)
+
+
 def main():
     here = Path(__file__).parent.resolve()
-    subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"], check=True)
-    subprocess.run(["python3", f"{here}/opus-binaries/build.py"], check=True)
+    # subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"], check=True)
+    # subprocess.run(["python3", f"{here}/opus-binaries/build.py"], check=True)
 
     if platform.system() == "Darwin":
-        build_arm64_mac_binaries()
-        build_x64_mac_binaries()
-        build_arm64_ios_binaries()
-        build_arm64_iphonesimulator_binaries()
+        # build_arm64_mac_binaries()
+        # build_x64_mac_binaries()
+        # build_arm64_ios_binaries()
+        # build_arm64_iphonesimulator_binaries()
+        build_wasm32_emscripten_binaries()
         return
     elif platform.system() == "Linux":
         build_x64_linux_binaries()
