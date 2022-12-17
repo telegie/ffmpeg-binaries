@@ -240,6 +240,9 @@ def build_wasm32_emscripten_binaries():
     llvm_nm = "/opt/homebrew/Cellar/emscripten/3.1.23/libexec/llvm/bin/llvm-nm"
 
     libvpx_pkgconfig = f"{here}/libvpx-binaries/install/wasm32-emscripten/lib/pkgconfig"
+    # For some reason, using the one in /install, running configure fails.
+    # Has something to do with opus and not finding libopus.a.
+    # TODO: Make this script work with the one in /install.
     # opus_pkgconfig = f"{here}/opus-binaries/install/wasm32-emscripten/lib/pkgconfig"
     opus_pkgconfig = f"{here}/opus-binaries/e4d4b74/wasm32-emscripten/lib/pkgconfig"
     pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
@@ -280,14 +283,14 @@ def build_wasm32_emscripten_binaries():
 
 def main():
     here = Path(__file__).parent.resolve()
-    # subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"], check=True)
-    # subprocess.run(["python3", f"{here}/opus-binaries/build.py"], check=True)
+    subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"], check=True)
+    subprocess.run(["python3", f"{here}/opus-binaries/build.py"], check=True)
 
     if platform.system() == "Darwin":
-        # build_arm64_mac_binaries()
-        # build_x64_mac_binaries()
-        # build_arm64_ios_binaries()
-        # build_arm64_iphonesimulator_binaries()
+        build_arm64_mac_binaries()
+        build_x64_mac_binaries()
+        build_arm64_ios_binaries()
+        build_arm64_iphonesimulator_binaries()
         build_wasm32_emscripten_binaries()
         return
     elif platform.system() == "Linux":
