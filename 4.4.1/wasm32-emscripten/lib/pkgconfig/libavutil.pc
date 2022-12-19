@@ -1,7 +1,7 @@
-prefix=../4.4.1/wasm32-emscripten
+prefix=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/install/wasm32-emscripten
 exec_prefix=${prefix}
-libdir=../4.4.1/wasm32-emscripten/lib
-includedir=../4.4.1/wasm32-emscripten/include
+libdir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/install/wasm32-emscripten/lib
+includedir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/install/wasm32-emscripten/include
 
 Name: libavutil
 Description: FFmpeg utility library
