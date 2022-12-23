@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
+import argparse
 import os
 import platform
+import urllib.request
 import shutil
 import subprocess
+import sys
 from pathlib import Path
-import urllib.request
-import stat
 
 
 # Need this perl script for building iOS binaries.
@@ -268,7 +269,8 @@ def build_wasm32_emscripten_binaries():
                     "--enable-encoder=libvpx_vp8,libopus",
                     "--enable-decoder=vp8,libopus",
                     "--enable-parser=vp8,opus",
-                    "--extra-ldflags=-s INITIAL_MEMORY=33554432",
+                    "--extra-cflags=-pthread -fPIC",
+                    "--extra-ldflags=-pthread -s INITIAL_MEMORY=33554432",
                     f"--env=PKG_CONFIG_PATH={pkg_config_path}",
                     f"--prefix={here}/output/wasm32-emscripten"],
                    cwd=build_path,
@@ -278,9 +280,17 @@ def build_wasm32_emscripten_binaries():
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--rebuild", action="store_true")
+    parser_args = parser.parse_args()
+
     here = Path(__file__).parent.resolve()
-    subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"], check=True)
-    subprocess.run(["python3", f"{here}/opus-binaries/build.py"], check=True)
+    subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"] + sys.argv[1:], check=True)
+    subprocess.run(["python3", f"{here}/opus-binaries/build.py"] + sys.argv[1:], check=True)
+
+    if parser_args.rebuild:
+        shutil.rmtree(f"{here}/build")
+        shutil.rmtree(f"{here}/output")
 
     if platform.system() == "Darwin":
         build_arm64_mac_binaries()
