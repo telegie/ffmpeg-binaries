@@ -32,8 +32,8 @@ def build_arm64_mac_binaries():
     if not os.path.exists(build_path):
         os.makedirs(build_path)
 
-    libvpx_pkgconfig = f"{here}/libvpx-binaries/install/arm64-mac/lib/pkgconfig"
-    opus_pkgconfig = f"{here}/opus-binaries/install/arm64-mac/lib/pkgconfig"
+    libvpx_pkgconfig = f"{here}/libvpx-binaries/output/arm64-mac/lib/pkgconfig"
+    opus_pkgconfig = f"{here}/opus-binaries/output/arm64-mac/lib/pkgconfig"
     pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     subprocess.run([f"{here}/FFmpeg/configure",
@@ -50,7 +50,7 @@ def build_arm64_mac_binaries():
                     "--disable-encoder=opus",
                     "--disable-decoder=libvpx_vp8,libvpx_vp9,opus",
                     f"--env=PKG_CONFIG_PATH={pkg_config_path}",
-                    f"--prefix={here}/install/arm64-mac"],
+                    f"--prefix={here}/output/arm64-mac"],
                    cwd=build_path,
                    check=True)
     subprocess.run(["make", "-C", build_path, "-j8"], check=True)
@@ -63,8 +63,8 @@ def build_x64_mac_binaries():
     if not os.path.exists(build_path):
         os.makedirs(build_path)
 
-    libvpx_pkgconfig = f"{here}/libvpx-binaries/install/x64-mac/lib/pkgconfig"
-    opus_pkgconfig = f"{here}/opus-binaries/install/x64-mac/lib/pkgconfig"
+    libvpx_pkgconfig = f"{here}/libvpx-binaries/output/x64-mac/lib/pkgconfig"
+    opus_pkgconfig = f"{here}/opus-binaries/output/x64-mac/lib/pkgconfig"
     pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     subprocess.run([f"{here}/FFmpeg/configure",
@@ -84,7 +84,7 @@ def build_x64_mac_binaries():
                     "--extra-cflags=-arch x86_64",
                     "--extra-ldflags=-arch x86_64",
                     f"--env=PKG_CONFIG_PATH={pkg_config_path}",
-                    f"--prefix={here}/install/x64-mac"],
+                    f"--prefix={here}/output/x64-mac"],
                    cwd=build_path,
                    check=True)
     subprocess.run(["make", "-C", build_path, "-j8"], check=True)
@@ -103,8 +103,8 @@ def build_arm64_ios_binaries():
     path = f"{gas_preprocessor_dir}:{path}"
 
     cc = "xcrun --sdk iphoneos clang"
-    libvpx_pkgconfig = f"{here}/libvpx-binaries/install/arm64-ios/lib/pkgconfig"
-    opus_pkgconfig = f"{here}/opus-binaries/install/arm64-ios/lib/pkgconfig"
+    libvpx_pkgconfig = f"{here}/libvpx-binaries/output/arm64-ios/lib/pkgconfig"
+    opus_pkgconfig = f"{here}/opus-binaries/output/arm64-ios/lib/pkgconfig"
     pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     xcrun_output = subprocess.run(["xcrun",
@@ -135,7 +135,7 @@ def build_arm64_ios_binaries():
                     "--disable-decoder=libvpx_vp8,libvpx_vp9,opus",
                     "--extra-cflags=-mios-version-min=14.0",
                     f"--env=PKG_CONFIG_PATH={pkg_config_path}",
-                    f"--prefix={here}/install/arm64-ios"],
+                    f"--prefix={here}/output/arm64-ios"],
                    cwd=build_path,
                    check=True,
                    env={"PATH": path})
@@ -156,8 +156,8 @@ def build_arm64_iphonesimulator_binaries():
     path = f"{gas_preprocessor_dir}:{path}"
 
     cc = "xcrun --sdk iphonesimulator clang"
-    libvpx_pkgconfig = f"{here}/libvpx-binaries/install/arm64-iphonesimulator/lib/pkgconfig"
-    opus_pkgconfig = f"{here}/opus-binaries/install/arm64-iphonesimulator/lib/pkgconfig"
+    libvpx_pkgconfig = f"{here}/libvpx-binaries/output/arm64-iphonesimulator/lib/pkgconfig"
+    opus_pkgconfig = f"{here}/opus-binaries/output/arm64-iphonesimulator/lib/pkgconfig"
     pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     xcrun_output = subprocess.run(["xcrun",
@@ -189,7 +189,7 @@ def build_arm64_iphonesimulator_binaries():
                     "--disable-decoder=libvpx_vp8,libvpx_vp9,opus",
                     "--extra-cflags=-miphonesimulator-version-min=14.0",
                     f"--env=PKG_CONFIG_PATH={pkg_config_path}",
-                    f"--prefix={here}/install/arm64-iphonesimulator"],
+                    f"--prefix={here}/output/arm64-iphonesimulator"],
                    cwd=build_path,
                    check=True,
                    env={"PATH": path})
@@ -204,8 +204,8 @@ def build_x64_linux_binaries():
     if not os.path.exists(build_path):
         os.makedirs(build_path)
 
-    libvpx_pkgconfig = f"{here}/libvpx-binaries/install/x64-linux/lib/pkgconfig"
-    opus_pkgconfig = f"{here}/opus-binaries/install/x64-linux/lib/pkgconfig"
+    libvpx_pkgconfig = f"{here}/libvpx-binaries/output/x64-linux/lib/pkgconfig"
+    opus_pkgconfig = f"{here}/opus-binaries/output/x64-linux/lib/pkgconfig"
     pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     subprocess.run([f"{here}/FFmpeg/configure",
@@ -224,7 +224,7 @@ def build_x64_linux_binaries():
                     "--extra-cflags=-fPIC",
                     "--pkg-config-flags=--static",
                     f"--env=PKG_CONFIG_PATH={pkg_config_path}",
-                    f"--prefix={here}/install/x64-linux"],
+                    f"--prefix={here}/output/x64-linux"],
                    cwd=build_path,
                    check=True)
     subprocess.run(["make", "-C", build_path, "-j8"], check=True)
@@ -239,12 +239,8 @@ def build_wasm32_emscripten_binaries():
 
     llvm_nm = "/opt/homebrew/Cellar/emscripten/3.1.23/libexec/llvm/bin/llvm-nm"
 
-    libvpx_pkgconfig = f"{here}/libvpx-binaries/install/wasm32-emscripten/lib/pkgconfig"
-    # For some reason, using the one in /install, running configure fails.
-    # Has something to do with opus and not finding libopus.a.
-    # TODO: Make this script work with the one in /install.
-    # opus_pkgconfig = f"{here}/opus-binaries/install/wasm32-emscripten/lib/pkgconfig"
-    opus_pkgconfig = f"{here}/opus-binaries/e4d4b74/wasm32-emscripten/lib/pkgconfig"
+    libvpx_pkgconfig = f"{here}/libvpx-binaries/output/wasm32-emscripten/lib/pkgconfig"
+    opus_pkgconfig = f"{here}/opus-binaries/output/wasm32-emscripten/lib/pkgconfig"
     pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     subprocess.run(["emconfigure",
@@ -274,7 +270,7 @@ def build_wasm32_emscripten_binaries():
                     "--enable-parser=vp8,opus",
                     "--extra-ldflags=-s INITIAL_MEMORY=33554432",
                     f"--env=PKG_CONFIG_PATH={pkg_config_path}",
-                    f"--prefix={here}/install/wasm32-emscripten"],
+                    f"--prefix={here}/output/wasm32-emscripten"],
                    cwd=build_path,
                    check=True)
     subprocess.run(["emmake", "make", "-C", build_path, "-j8"], check=True)
