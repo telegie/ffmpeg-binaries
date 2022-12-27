@@ -1,7 +1,7 @@
-prefix=/Users/hanseuljun/repos/telegie-task-processor/pyrgbd/librgbd/deps/ffmpeg-binaries/install/x64-mac
+prefix=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/x64-mac
 exec_prefix=${prefix}
-libdir=/Users/hanseuljun/repos/telegie-task-processor/pyrgbd/librgbd/deps/ffmpeg-binaries/install/x64-mac/lib
-includedir=/Users/hanseuljun/repos/telegie-task-processor/pyrgbd/librgbd/deps/ffmpeg-binaries/install/x64-mac/include
+libdir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/x64-mac/lib
+includedir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/x64-mac/include
 
 Name: libswscale
 Description: FFmpeg image rescaling library

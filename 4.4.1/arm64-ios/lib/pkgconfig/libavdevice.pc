@@ -1,7 +1,7 @@
-prefix=../install
+prefix=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/arm64-ios
 exec_prefix=${prefix}
-libdir=../install/lib
-includedir=../install/include
+libdir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/arm64-ios/lib
+includedir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/arm64-ios/include
 
 Name: libavdevice
 Description: FFmpeg device handling library
@@ -9,6 +9,6 @@ Version: 58.13.100
 Requires: libavfilter >= 7.110.100, libswscale >= 5.9.100, libavformat >= 58.76.100, libavcodec >= 58.134.100, libswresample >= 3.9.100, libavutil >= 56.70.100
 Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavdevice -framework Foundation -lm -framework AVFoundation -framework CoreVideo -framework CoreMedia -pthread
+Libs: -L${libdir}  -lavdevice -framework Foundation -lm -framework AVFoundation -framework CoreVideo -framework CoreMedia -pthread -L/opt/homebrew/Cellar/libxcb/1.15/lib -lxcb -L/opt/homebrew/Cellar/libxcb/1.15/lib -lxcb-shm -L/opt/homebrew/Cellar/libxcb/1.15/lib -lxcb-shape -L/opt/homebrew/Cellar/libxcb/1.15/lib -lxcb-xfixes
 Libs.private: 
 Cflags: -I${includedir}

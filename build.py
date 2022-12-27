@@ -334,18 +334,18 @@ def main():
     parser_args = parser.parse_args()
 
     here = Path(__file__).parent.resolve()
-    # subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"] + sys.argv[1:], check=True)
-    # subprocess.run(["python3", f"{here}/opus-binaries/build.py"] + sys.argv[1:], check=True)
+    subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"] + sys.argv[1:], check=True)
+    subprocess.run(["python3", f"{here}/opus-binaries/build.py"] + sys.argv[1:], check=True)
 
     if parser_args.rebuild:
         shutil.rmtree(f"{here}/build")
         shutil.rmtree(f"{here}/output")
 
     if platform.system() == "Darwin":
-        # build_arm64_mac_binaries()
-        # build_x64_mac_binaries()
-        # build_arm64_ios_binaries()
-        # build_arm64_iphonesimulator_binaries()
+        build_arm64_mac_binaries()
+        build_x64_mac_binaries()
+        build_arm64_ios_binaries()
+        build_arm64_iphonesimulator_binaries()
         build_wasm32_emscripten_binaries()
         build_wasm32_emscripten_mt_binaries()
         return

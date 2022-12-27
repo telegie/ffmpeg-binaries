@@ -1,7 +1,7 @@
-prefix=../install
+prefix=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/arm64-ios
 exec_prefix=${prefix}
-libdir=../install/lib
-includedir=../install/include
+libdir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/arm64-ios/lib
+includedir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/arm64-ios/include
 
 Name: libavfilter
 Description: FFmpeg audio/video filtering library
