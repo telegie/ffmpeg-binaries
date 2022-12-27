@@ -1,0 +1,14 @@
+prefix=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten-mt
+exec_prefix=${prefix}
+libdir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten-mt/lib
+includedir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten-mt/include
+
+Name: libavutil
+Description: FFmpeg utility library
+Version: 56.70.100
+Requires: 
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavutil -pthread -lm
+Libs.private: 
+Cflags: -I${includedir}

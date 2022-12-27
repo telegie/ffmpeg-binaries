@@ -1,0 +1,14 @@
+prefix=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten-mt
+exec_prefix=${prefix}
+libdir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten-mt/lib
+includedir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten-mt/include
+
+Name: libavfilter
+Description: FFmpeg audio/video filtering library
+Version: 7.110.100
+Requires: libavutil >= 56.70.100
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavfilter -pthread -lm
+Libs.private: 
+Cflags: -I${includedir}

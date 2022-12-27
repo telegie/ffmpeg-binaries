@@ -1,0 +1,14 @@
+prefix=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten-mt
+exec_prefix=${prefix}
+libdir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten-mt/lib
+includedir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten-mt/include
+
+Name: libavformat
+Description: FFmpeg container format library
+Version: 58.76.100
+Requires: libavcodec >= 58.134.100, libavutil >= 56.70.100
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavformat -lm -lz
+Libs.private: 
+Cflags: -I${includedir}

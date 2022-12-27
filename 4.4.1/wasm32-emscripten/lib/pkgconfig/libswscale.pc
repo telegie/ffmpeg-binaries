@@ -1,7 +1,7 @@
-prefix=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/install/wasm32-emscripten
+prefix=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten
 exec_prefix=${prefix}
-libdir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/install/wasm32-emscripten/lib
-includedir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/install/wasm32-emscripten/include
+libdir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten/lib
+includedir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten/include
 
 Name: libswscale
 Description: FFmpeg image rescaling library

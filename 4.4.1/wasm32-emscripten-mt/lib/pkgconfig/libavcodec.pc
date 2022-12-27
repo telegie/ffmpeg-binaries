@@ -1,0 +1,14 @@
+prefix=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten-mt
+exec_prefix=${prefix}
+libdir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten-mt/lib
+includedir=/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/output/wasm32-emscripten-mt/include
+
+Name: libavcodec
+Description: FFmpeg codec library
+Version: 58.134.100
+Requires: libavutil >= 56.70.100
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavcodec -L/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/libvpx-binaries/output/wasm32-emscripten/lib -lvpx -lm -pthread -lm -L/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/opus-binaries/output/wasm32-emscripten/lib -lopus
+Libs.private: 
+Cflags: -I${includedir}
