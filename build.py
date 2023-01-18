@@ -338,8 +338,12 @@ def main():
     subprocess.run(["python3", f"{here}/opus-binaries/build.py"] + sys.argv[1:], check=True)
 
     if parser_args.rebuild:
-        shutil.rmtree(f"{here}/build")
-        shutil.rmtree(f"{here}/output")
+        build_path = Path(f"{here}/build")
+        output_path = Path(f"{here}/output")
+        if build_path.exists():
+            shutil.rmtree(build_path)
+        if output_path.exists():
+            shutil.rmtree(output_path)
 
     if platform.system() == "Darwin":
         build_arm64_mac_binaries()

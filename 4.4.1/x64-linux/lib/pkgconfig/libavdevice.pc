@@ -1,7 +1,7 @@
-prefix=/root/pyrgbd3/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux
+prefix=/home/hanseul/repos/librgbd/deps/ffmpeg-binaries/output/x64-linux
 exec_prefix=${prefix}
-libdir=/root/pyrgbd3/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux/lib
-includedir=/root/pyrgbd3/librgbd-binaries/librgbd/deps/ffmpeg-binaries/4.4.1/x64-linux/include
+libdir=/home/hanseul/repos/librgbd/deps/ffmpeg-binaries/output/x64-linux/lib
+includedir=/home/hanseul/repos/librgbd/deps/ffmpeg-binaries/output/x64-linux/include
 
 Name: libavdevice
 Description: FFmpeg device handling library
@@ -9,6 +9,6 @@ Version: 58.13.100
 Requires: libavfilter >= 7.110.100, libswscale >= 5.9.100, libavformat >= 58.76.100, libavcodec >= 58.134.100, libswresample >= 3.9.100, libavutil >= 56.70.100
 Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavdevice -lm
+Libs: -L${libdir}  -lavdevice -lm -lxcb -lXau -lXdmcp -lxcb-shm -lxcb -lXau -lXdmcp
 Libs.private: 
 Cflags: -I${includedir}
