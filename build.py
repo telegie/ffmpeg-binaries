@@ -54,7 +54,8 @@ def build_x64_windows_binaries():
     if not os.path.exists(build_path):
         os.makedirs(build_path)
 
-    mingw_here = str(here).replace("\\", "/")
+    # TODO: Support other drives than C drive.
+    mingw_here = str(here).replace("C:\\", "/c/").replace("\\", "/")
     run_in_mingw(["/bin/bash",
                   "--login",
                   f"{here}/mingw_build.sh",
@@ -390,12 +391,10 @@ def main():
         build_arm64_iphonesimulator_binaries()
         build_wasm32_emscripten_binaries()
         build_wasm32_emscripten_mt_binaries()
-        return
     elif platform.system() == "Linux":
         build_x64_linux_binaries()
-        return
-
-    raise Exception(f"ffmpeg build not supported.")
+    else:
+        raise Exception(f"ffmpeg build not supported.")
 
 
 if __name__ == "__main__":
