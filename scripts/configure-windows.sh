@@ -1,6 +1,27 @@
 #!/bin/bash
 
-export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/c/Users/hanseul/repos/librgbd/deps/ffmpeg-binaries/libvpx-binaries/1.10.0/x64-windows/lib/pkgconfig:/c/Users/hanseul/repos/librgbd/deps/ffmpeg-binaries/opus-binaries/e4d4b74/x64-windows/lib/pkgconfig"
+here="$(pwd)/.."
+echo "here: ${here}"
+
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:${here}/libvpx-binaries/output/x64-windows/lib/pkgconfig"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:${here}/opus-binaries/output/x64-windows/lib/pkgconfig"
+
+echo "PKG_CONFIG_PATH: ${PKG_CONFIG_PATH}"
+echo ""
+
+msys_libvpx_include="${here}/libvpx-binaries/output/x64-windows/include"
+msys_libvpx_lib="${here}/libvpx-binaries/output/x64-windows/lib"
+
+windows_libvpx_include=$(cygpath -m $msys_libvpx_include)
+windows_libvpx_lib=$(cygpath -m $msys_libvpx_lib)
+
+export INCLUDE="$INCLUDE;${windows_libvpx_include}"
+export LIB="$LIB;${windows_libvpx_lib}"
+
+echo "INCLUDE: ${INCLUDE}"
+echo ""
+echo "LIB: ${LIB}"
+echo ""
 
 ../FFmpeg/configure \
   --target-os=mingw64 \
