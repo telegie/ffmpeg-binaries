@@ -1,9 +1,6 @@
 [submodule "FFmpeg"]
 	path = FFmpeg
 	url = https://github.com/FFmpeg/FFmpeg.git
-[submodule "libvpx-binaries"]
-	path = libvpx-binaries
-	url = https://github.com/telegie/libvpx-binaries.git
 [submodule "opus-binaries"]
 	path = opus-binaries
 	url = https://github.com/telegie/opus-binaries.git
