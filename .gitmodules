@@ -4,3 +4,6 @@
 [submodule "opus-binaries"]
 	path = opus-binaries
 	url = https://github.com/telegie/opus-binaries.git
+[submodule "libvpx-binaries/libvpx"]
+	path = libvpx-binaries/libvpx
+	url = https://github.com/webmproject/libvpx.git
