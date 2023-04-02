@@ -1,0 +1,16 @@
+# Opus codec reference implementation pkg-config file
+
+prefix=/Users/hanseuljun/repos/opus-binaries/install/arm64-iphonesimulator
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Opus
+Description: Opus IETF audio codec (floating-point build)
+URL: https://opus-codec.org/
+Version: 1.3.1-91-g7b05f44f
+Requires:
+Conflicts:
+Libs: -L${libdir} -lopus
+Libs.private: 
+Cflags: -I${includedir}/opus
