@@ -1,14 +1,14 @@
-prefix=../install
+prefix=../output/x64-windows
 exec_prefix=${prefix}
-libdir=../install/lib
-includedir=../install/include
+libdir=../output/x64-windows/lib
+includedir=../output/x64-windows/include
 
 Name: libavcodec
 Description: FFmpeg codec library
 Version: 58.134.100
-Requires: 
-Requires.private: libavutil >= 56.70.100
+Requires: libavutil >= 56.70.100
+Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavcodec 
-Libs.private: -lvpx -lm -lvpx -lm -lm -LC:/tools/msys64/mingw64/lib -lz -LC:/Users/hanseul/repos/telegie/deps/ffmpeg-binaries/opus-binaries/e4d4b74/x86_64-w64-mingw32/lib -lopus -lmfplat -lmfuuid -lole32 -lstrmiids -lole32 -luser32
+Libs: -L${libdir}  -lavcodec vpx.lib -libpath:C:/Users/hanseul/repos/librgbd/deps/ffmpeg-binaries/opus-binaries/output/x64-windows/lib opus.lib mfplat.lib mfuuid.lib ole32.lib strmiids.lib ole32.lib user32.lib
+Libs.private: 
 Cflags: -I${includedir}

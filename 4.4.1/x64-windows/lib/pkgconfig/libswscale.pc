@@ -1,14 +1,14 @@
-prefix=../install
+prefix=../output/x64-windows
 exec_prefix=${prefix}
-libdir=../install/lib
-includedir=../install/include
+libdir=../output/x64-windows/lib
+includedir=../output/x64-windows/include
 
 Name: libswscale
 Description: FFmpeg image rescaling library
 Version: 5.9.100
-Requires: 
-Requires.private: libavutil >= 56.70.100
+Requires: libavutil >= 56.70.100
+Requires.private: 
 Conflicts:
 Libs: -L${libdir}  -lswscale 
-Libs.private: -lm
+Libs.private: 
 Cflags: -I${includedir}

@@ -1,7 +1,7 @@
-prefix=../install
+prefix=../output/x64-windows
 exec_prefix=${prefix}
-libdir=../install/lib
-includedir=../install/include
+libdir=../output/x64-windows/lib
+includedir=../output/x64-windows/include
 
 Name: libavutil
 Description: FFmpeg utility library
@@ -9,6 +9,6 @@ Version: 56.70.100
 Requires: 
 Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavutil 
-Libs.private: -lm -luser32 -lbcrypt
+Libs: -L${libdir}  -lavutil user32.lib bcrypt.lib
+Libs.private: 
 Cflags: -I${includedir}

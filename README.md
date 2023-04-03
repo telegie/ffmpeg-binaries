@@ -2,7 +2,7 @@
 
 ## Windows x64 build
 
-- python3 bootstrap.py
+- python3 rebuild.py
 
 - Install msys2 and Visual Studio 2022
 

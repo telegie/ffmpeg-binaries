@@ -34,7 +34,7 @@ echo ""
   --arch=x86_64 \
   --toolchain=msvc \
   --enable-cross-compile \
-  --enable-shared \
+  --enable-static \
   --disable-debug \
   --disable-programs \
   --disable-doc \

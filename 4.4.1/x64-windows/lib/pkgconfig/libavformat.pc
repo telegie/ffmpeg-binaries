@@ -1,14 +1,14 @@
-prefix=../install
+prefix=../output/x64-windows
 exec_prefix=${prefix}
-libdir=../install/lib
-includedir=../install/include
+libdir=../output/x64-windows/lib
+includedir=../output/x64-windows/include
 
 Name: libavformat
 Description: FFmpeg container format library
 Version: 58.76.100
-Requires: 
-Requires.private: libavcodec >= 58.134.100, libavutil >= 56.70.100
+Requires: libavcodec >= 58.134.100, libavutil >= 56.70.100
+Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavformat 
-Libs.private: -lm -LC:/tools/msys64/mingw64/lib -lz -lsecur32 -lws2_32
+Libs: -L${libdir}  -lavformat secur32.lib ws2_32.lib
+Libs.private: 
 Cflags: -I${includedir}

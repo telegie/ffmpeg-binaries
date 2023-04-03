@@ -345,7 +345,9 @@ def main():
         if output_path.exists():
             shutil.rmtree(output_path)
 
-    if platform.system() == "Darwin":
+    if platform.system() == "Windows":
+        print("Run build_windows.sh in msys2 with access to cl.exe")
+    elif platform.system() == "Darwin":
         build_arm64_mac_binaries()
         build_x64_mac_binaries()
         build_arm64_ios_binaries()
