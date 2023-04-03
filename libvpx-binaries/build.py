@@ -32,9 +32,9 @@ def build_x64_windows_binaries(rebuild):
     build_path = f"{here}/build/x64-windows"
     output_path = f"{here}/output/x64-windows"
 
-    #if not rebuild and os.path.exists(output_path):
-    #    print("libvpx x64-windows build already built")
-    #    return
+    if not rebuild and os.path.exists(output_path):
+       print("libvpx x64-windows build already built")
+       return
 
     if not os.path.exists(build_path):
         os.makedirs(build_path)
@@ -56,6 +56,9 @@ def build_x64_windows_binaries(rebuild):
                   f"{here}/mingw_install.sh",
                   build_path],
                   check=True)
+    # Rename the outcome .lib file to vpx.lib as ffmpeg expects the filename
+    # to be vpx.lib.
+    os.rename(f"{output_path}/lib/x64/vpxmt.lib", f"{output_path}/lib/x64/vpx.lib")
 
 
 def build_arm64_mac_binaries():
