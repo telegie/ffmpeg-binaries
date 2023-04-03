@@ -9,26 +9,6 @@ import sys
 from pathlib import Path
 
 
-def find_msys64_env():
-    path1 = "c:/msys64/usr/bin/env.exe"
-    if os.path.exists(path1):
-        return path1
-    path2 = "c:/tools/msys64/usr/bin/env.exe"
-    if os.path.exists(path2):
-        return path2
-    return None
-    
-
-def run_in_mingw(extra_args, check=False):
-    msys64_env_path = find_msys64_env()
-    if msys64_env_path == None:
-        raise "No msys64 env"
-
-    args = [msys64_env_path, "MSYSTEM=MINGW64"]
-    args = args + extra_args
-    subprocess.run(args, check=check)
-
-
 # Need this perl script for building iOS binaries.
 # from https://github.com/kewlbear/FFmpeg-iOS-build-script
 def download_gas_preprocessor():
@@ -45,23 +25,6 @@ def download_gas_preprocessor():
                                gas_preprocessor_path)
     subprocess.run(["chmod", "+x", gas_preprocessor_path], check=True)
     return build_path
-
-
-def build_x64_windows_binaries():
-    here = Path(__file__).parent.resolve()
-    build_path = f"{here}/build/x64-windows"
-
-    if not os.path.exists(build_path):
-        os.makedirs(build_path)
-
-    # TODO: Support other drives than C drive.
-    mingw_here = str(here).replace("C:\\", "/c/").replace("\\", "/")
-    run_in_mingw(["/bin/bash",
-                  "--login",
-                  f"{here}/mingw_build.sh",
-                  mingw_here,
-                  build_path],
-                  check=True)
 
 
 def build_arm64_mac_binaries():
@@ -382,9 +345,7 @@ def main():
         if output_path.exists():
             shutil.rmtree(output_path)
 
-    if platform.system() == "Windows":
-        build_x64_windows_binaries()
-    elif platform.system() == "Darwin":
+    if platform.system() == "Darwin":
         build_arm64_mac_binaries()
         build_x64_mac_binaries()
         build_arm64_ios_binaries()

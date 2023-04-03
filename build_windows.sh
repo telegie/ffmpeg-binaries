@@ -48,3 +48,6 @@ echo ""
   --disable-encoder=opus,libvpx_vp9 \
   --disable-decoder=vp9,libvpx_vp8,libvpx_vp9,opus \
   --prefix=../output/x64-windows
+
+make -j8
+make install
