@@ -216,6 +216,7 @@ def build_x64_linux_binaries():
                     "--disable-programs",
                     "--disable-doc",
                     "--disable-videotoolbox",
+                    "--disable-lzma",
                     "--enable-libvpx",
                     "--enable-libopus",
                     "--enable-encoder=libvpx_vp8,libvpx_vp9,libopus",

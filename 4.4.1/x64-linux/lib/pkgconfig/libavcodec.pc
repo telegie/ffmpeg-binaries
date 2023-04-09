@@ -9,6 +9,6 @@ Version: 58.134.100
 Requires: libavutil >= 56.70.100
 Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavcodec -L/home/hanseul/repos/librgbd/deps/ffmpeg-binaries/libvpx-binaries/output/x64-linux/lib -lvpx -lm -lpthread -L/home/hanseul/repos/librgbd/deps/ffmpeg-binaries/libvpx-binaries/output/x64-linux/lib -lvpx -lm -lpthread -pthread -lm -llzma -lz -L/home/hanseul/repos/librgbd/deps/ffmpeg-binaries/opus-binaries/output/x64-linux/lib -lopus -lm
+Libs: -L${libdir}  -lavcodec -L/home/hanseul/repos/librgbd/deps/ffmpeg-binaries/libvpx-binaries/output/x64-linux/lib -lvpx -lm -lpthread -L/home/hanseul/repos/librgbd/deps/ffmpeg-binaries/libvpx-binaries/output/x64-linux/lib -lvpx -lm -lpthread -pthread -lm -lz -L/home/hanseul/repos/librgbd/deps/ffmpeg-binaries/opus-binaries/output/x64-linux/lib -lopus -lm
 Libs.private: 
 Cflags: -I${includedir}
