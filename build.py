@@ -239,7 +239,9 @@ def build_wasm32_emscripten_binaries():
     if not os.path.exists(build_path):
         os.makedirs(build_path)
 
-    llvm_nm = "/opt/homebrew/Cellar/emscripten/3.1.23/libexec/llvm/bin/llvm-nm"
+    # llvm_nm = "/opt/homebrew/Cellar/emscripten/3.1.23/libexec/llvm/bin/llvm-nm"
+    llvm_nm = "/Users/hanseuljun/repos/emsdk/upstream/bin/llvm-nm"
+
 
     libvpx_pkgconfig = f"{here}/libvpx-binaries/output/wasm32-emscripten/lib/pkgconfig"
     opus_pkgconfig = f"{here}/opus-binaries/output/wasm32-emscripten/lib/pkgconfig"
@@ -268,7 +270,9 @@ def build_wasm32_emscripten_binaries():
                     "--enable-libvpx",
                     "--enable-libopus",
                     "--enable-encoder=libvpx_vp8,libopus",
-                    "--enable-decoder=vp8,libopus",
+                    "--enable-decoder=libvpx_vp8,libopus",
+                    "--disable-encoder=opus",
+                    "--disable-decoder=vp8,vp9,opus",
                     "--enable-parser=vp8,opus",
                     "--disable-pthreads",
                     "--extra-cflags=-fPIC -O3",
@@ -316,7 +320,9 @@ def build_wasm32_emscripten_mt_binaries():
                     "--enable-libvpx",
                     "--enable-libopus",
                     "--enable-encoder=libvpx_vp8,libopus",
-                    "--enable-decoder=vp8,libopus",
+                    "--enable-decoder=libvpx_vp8,libopus",
+                    "--disable-encoder=opus",
+                    "--disable-decoder=vp8,vp9,opus",
                     "--enable-parser=vp8,opus",
                     "--enable-pthreads",
                     "--extra-cflags=-pthread -s USE_PTHREADS=1 -fPIC -O3",
@@ -335,8 +341,8 @@ def main():
     parser_args = parser.parse_args()
 
     here = Path(__file__).parent.resolve()
-    subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"] + sys.argv[1:], check=True)
-    subprocess.run(["python3", f"{here}/opus-binaries/build.py"] + sys.argv[1:], check=True)
+    # subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"] + sys.argv[1:], check=True)
+    # subprocess.run(["python3", f"{here}/opus-binaries/build.py"] + sys.argv[1:], check=True)
 
     if parser_args.rebuild:
         build_path = Path(f"{here}/build")
