@@ -242,8 +242,8 @@ def build_wasm32_emscripten_binaries():
     # llvm_nm = "/opt/homebrew/Cellar/emscripten/3.1.23/libexec/llvm/bin/llvm-nm"
     llvm_nm = "/Users/hanseuljun/repos/emsdk/upstream/bin/llvm-nm"
 
-
     libvpx_pkgconfig = f"{here}/libvpx-binaries/output/wasm32-emscripten/lib/pkgconfig"
+    # libvpx_pkgconfig = f"{here}/libvpx-binaries/output/wasm32-emscripten-brion/lib/pkgconfig"
     opus_pkgconfig = f"{here}/opus-binaries/output/wasm32-emscripten/lib/pkgconfig"
     pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
@@ -341,8 +341,8 @@ def main():
     parser_args = parser.parse_args()
 
     here = Path(__file__).parent.resolve()
-    # subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"] + sys.argv[1:], check=True)
-    # subprocess.run(["python3", f"{here}/opus-binaries/build.py"] + sys.argv[1:], check=True)
+    subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"] + sys.argv[1:], check=True)
+    subprocess.run(["python3", f"{here}/opus-binaries/build.py"] + sys.argv[1:], check=True)
 
     if parser_args.rebuild:
         build_path = Path(f"{here}/build")
@@ -360,7 +360,7 @@ def main():
         build_arm64_ios_binaries()
         build_arm64_iphonesimulator_binaries()
         build_wasm32_emscripten_binaries()
-        build_wasm32_emscripten_mt_binaries()
+        # build_wasm32_emscripten_mt_binaries()
     elif platform.system() == "Linux":
         build_x64_linux_binaries()
     else:
