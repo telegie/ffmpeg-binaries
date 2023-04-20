@@ -9,6 +9,6 @@ Version: 58.134.100
 Requires: libavutil >= 56.70.100
 Requires.private: 
 Conflicts:
-Libs: -L${libdir}  -lavcodec -L/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/libvpx-binaries/output/arm64-ios/lib -lvpx -lm -L/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/libvpx-binaries/output/arm64-ios/lib -lvpx -lm -pthread -lm -lz -L/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/opus-binaries/output/arm64-ios/lib -lopus
+Libs: -L${libdir}  -lavcodec -L/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/libvpx-binaries/output/arm64-ios/lib -lvpx -lm -L/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/libvpx-binaries/output/arm64-ios/lib -lvpx -lm -pthread -lm -L/Users/hanseuljun/repos/telegie-app/deps/librgbd/deps/ffmpeg-binaries/opus-binaries/output/arm64-ios/lib -lopus
 Libs.private: 
 Cflags: -I${includedir}
