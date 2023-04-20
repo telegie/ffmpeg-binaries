@@ -8,6 +8,8 @@ from pathlib import Path
 
 
 COMMON_OPTIONS = [
+    "--enable-ccache",
+    "--disable-install-bins",
     "--disable-examples",
     "--disable-tools",
     "--disable-docs",
@@ -219,11 +221,11 @@ def main():
         build_x64_windows_binaries(parser_args.rebuild)
         return
     elif platform.system() == "Darwin":
-        # build_arm64_mac_binaries()
-        # build_x64_mac_binaries()
-        # build_arm64_ios_binaries()
+        build_arm64_mac_binaries()
+        build_x64_mac_binaries()
+        build_arm64_ios_binaries()
         build_arm64_iphonesimulator_binaries()
-        # build_wasm32_emscripten()
+        build_wasm32_emscripten()
         return
     elif platform.system() == "Linux":
         build_x64_linux_binaries()
