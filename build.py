@@ -333,7 +333,24 @@ def build_wasm32_emscripten_mt_binaries():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--rebuild", action="store_true")
+    parser.add_argument("--targets", type=str)
     parser_args = parser.parse_args()
+
+    if parser_args.targets is None:
+        if platform.system() == "Windows":
+            raise Exception("To build ffmpeg, run build_windows.sh in msys2 with access to cl.exe")
+        elif platform.system() == "Darwin":
+            targets = ["arm64-mac",
+                       "x64-mac",
+                       "arm64-ios",
+                       "arm64-iphonesimulator",
+                       "wasm32-emscripten"]
+        elif platform.system() == "Linux":
+            targets = ["x64-linux"]
+        else:
+            raise Exception(f"ffmpeg build not supported.")
+    else:
+        targets = parser_args.targets.split(",")
 
     here = Path(__file__).parent.resolve()
     subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"] + sys.argv[1:], check=True)
@@ -347,19 +364,18 @@ def main():
         if output_path.exists():
             shutil.rmtree(output_path)
 
-    if platform.system() == "Windows":
-        print("Run build_windows.sh in msys2 with access to cl.exe")
-    elif platform.system() == "Darwin":
+    if "arm64-mac" in targets:
         build_arm64_mac_binaries()
+    if "x64-mac" in targets:
         build_x64_mac_binaries()
-        build_arm64_ios_binaries()
-        build_arm64_iphonesimulator_binaries()
-        build_wasm32_emscripten_binaries()
-        # build_wasm32_emscripten_mt_binaries()
-    elif platform.system() == "Linux":
+    if "x64-linux" in targets:
         build_x64_linux_binaries()
-    else:
-        raise Exception(f"ffmpeg build not supported.")
+    if "arm64-ios" in targets:
+        build_arm64_ios_binaries()
+    if "arm64-iphonesimulator" in targets:
+        build_arm64_iphonesimulator_binaries()
+    if "wasm32-emscripten" in targets:
+        build_wasm32_emscripten_binaries()
 
 
 if __name__ == "__main__":

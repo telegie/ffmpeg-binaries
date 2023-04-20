@@ -54,8 +54,6 @@ def build_x64_windows_binaries(rebuild):
     if not os.path.exists(build_path):
         os.makedirs(build_path)
 
-    run_autogen_windows()
-
     subprocess.run(["cmake",
                     "-S", f"{here}/opus",
                     "-B", build_path,
@@ -180,7 +178,7 @@ def build_x64_linux_binaries():
     subprocess.run(["make", "install"], cwd=build_path, check=True)
 
 
-def build_wasm32_emcsripten_binaries():
+def build_wasm32_emscripten_binaries():
     here = Path(__file__).parent.resolve()
     build_path = f"{here}/build/wasm32-emscripten"
     if not os.path.exists(build_path):
@@ -208,7 +206,24 @@ def build_wasm32_emcsripten_binaries():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--rebuild", action="store_true")
+    parser.add_argument("--targets", type=str)
     parser_args = parser.parse_args()
+
+    if parser_args.targets is None:
+        if platform.system() == "Windows":
+            targets = ["x64-windows"]
+        elif platform.system() == "Darwin":
+            targets = ["arm64-mac",
+                       "x64-mac",
+                       "arm64-ios",
+                       "arm64-iphonesimulator",
+                       "wasm32-emscripten"]
+        elif platform.system() == "Linux":
+            targets = ["x64-linux"]
+        else:
+            raise Exception(f"opus build not supported.")
+    else:
+        targets = parser_args.targets.split(",")
 
     here = Path(__file__).parent.resolve()
     if parser_args.rebuild:
@@ -220,24 +235,26 @@ def main():
             shutil.rmtree(output_path)
 
     if platform.system() == "Windows":
-        # run_autogen_windows included in build_x64_windows_binaries
         build_x64_windows_binaries(parser_args.rebuild)
-        return
     elif platform.system() == "Darwin":
-        # running run_autogen here to run it only once
         run_autogen()
-        build_arm64_mac_binaries()
-        build_x64_mac_binaries()
-        build_arm64_ios_binaries()
-        build_arm64_iphonesimulator_binaries()
-        build_wasm32_emcsripten_binaries()
-        return
     elif platform.system() == "Linux":
         run_autogen()
-        build_x64_linux_binaries()
-        return
 
-    raise Exception(f"opus build not supported.")
+    if "x64-windows" in targets:
+        build_x64_windows_binaries(parser_args.rebuild)
+    if "arm64-mac" in targets:
+        build_arm64_mac_binaries()
+    if "x64-mac" in targets:
+        build_x64_mac_binaries()
+    if "x64-linux" in targets:
+        build_x64_linux_binaries()
+    if "arm64-ios" in targets:
+        build_arm64_ios_binaries()
+    if "arm64-iphonesimulator" in targets:
+        build_arm64_iphonesimulator_binaries()
+    if "wasm32-emscripten" in targets:
+        build_wasm32_emscripten_binaries()
 
 
 if __name__ == "__main__":

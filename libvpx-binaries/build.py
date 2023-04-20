@@ -19,6 +19,7 @@ COMMON_OPTIONS = [
     "--disable-libyuv"
 ]
 
+
 def find_msys64_env():
     path1 = "c:/msys64/usr/bin/env.exe"
     if os.path.exists(path1):
@@ -206,7 +207,24 @@ def build_wasm32_emscripten_mt():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--rebuild", action="store_true")
+    parser.add_argument("--targets", type=str)
     parser_args = parser.parse_args()
+
+    if parser_args.targets is None:
+        if platform.system() == "Windows":
+            targets = ["x64-windows"]
+        elif platform.system() == "Darwin":
+            targets = ["arm64-mac",
+                       "x64-mac",
+                       "arm64-ios",
+                       "arm64-iphonesimulator",
+                       "wasm32-emscripten"]
+        elif platform.system() == "Linux":
+            targets = ["x64-linux"]
+        else:
+            raise Exception(f"libvpx build not supported.")
+    else:
+        targets = parser_args.targets.split(",")
 
     here = Path(__file__).parent.resolve()
     if parser_args.rebuild:
@@ -217,21 +235,20 @@ def main():
         if output_path.exists():
             shutil.rmtree(output_path)
 
-    if platform.system() == "Windows":
+    if "x64-windows" in targets:
         build_x64_windows_binaries(parser_args.rebuild)
-        return
-    elif platform.system() == "Darwin":
+    if "arm64-mac" in targets:
         build_arm64_mac_binaries()
+    if "x64-mac" in targets:
         build_x64_mac_binaries()
-        build_arm64_ios_binaries()
-        build_arm64_iphonesimulator_binaries()
-        build_wasm32_emscripten()
-        return
-    elif platform.system() == "Linux":
+    if "x64-linux" in targets:
         build_x64_linux_binaries()
-        return
-
-    raise Exception(f"libvpx build not supported.")
+    if "arm64-ios" in targets:
+        build_arm64_ios_binaries()
+    if "arm64-iphonesimulator" in targets:
+        build_arm64_iphonesimulator_binaries()
+    if "wasm32-emscripten" in targets:
+        build_wasm32_emscripten()
 
 
 if __name__ == "__main__":
