@@ -334,11 +334,12 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--rebuild", action="store_true")
     parser.add_argument("--targets", type=str)
-    parser_args = parser.parse_args()
+    args = parser.parse_args()
 
-    if parser_args.targets is None:
+    if args.targets is None:
         if platform.system() == "Windows":
-            raise Exception("To build ffmpeg, run build_windows.sh in msys2 with access to cl.exe")
+            print("To build ffmpeg, run build_windows.sh in msys2 with access to cl.exe")
+            targets = []
         elif platform.system() == "Darwin":
             targets = ["arm64-mac",
                        "x64-mac",
@@ -350,13 +351,13 @@ def main():
         else:
             raise Exception(f"ffmpeg build not supported.")
     else:
-        targets = parser_args.targets.split(",")
+        targets = args.targets.split(",")
 
     here = Path(__file__).parent.resolve()
     subprocess.run(["python3", f"{here}/libvpx-binaries/build.py"] + sys.argv[1:], check=True)
     subprocess.run(["python3", f"{here}/opus-binaries/build.py"] + sys.argv[1:], check=True)
 
-    if parser_args.rebuild:
+    if args.rebuild:
         build_path = Path(f"{here}/build")
         output_path = Path(f"{here}/output")
         if build_path.exists():
