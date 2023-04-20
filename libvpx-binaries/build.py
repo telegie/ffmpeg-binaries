@@ -7,6 +7,16 @@ import subprocess
 from pathlib import Path
 
 
+COMMON_OPTIONS = [
+    "--disable-examples",
+    "--disable-tools",
+    "--disable-docs",
+    "--disable-unit-tests",
+    "--disable-vp9",
+    "--disable-webm-io",
+    "--disable-libyuv"
+]
+
 def find_msys64_env():
     path1 = "c:/msys64/usr/bin/env.exe"
     if os.path.exists(path1):
@@ -69,7 +79,7 @@ def build_arm64_mac_binaries():
 
     subprocess.run([f"{here}/libvpx/configure",
                     "--target=arm64-darwin20-gcc",
-                    f"--prefix={here}/output/arm64-mac"],
+                    f"--prefix={here}/output/arm64-mac"] + COMMON_OPTIONS,
                    cwd=build_path,
                    check=True)
     subprocess.run(["make", "-C", build_path, "-j8"], check=True)
@@ -84,7 +94,7 @@ def build_x64_mac_binaries():
 
     subprocess.run([f"{here}/libvpx/configure",
                     "--target=x86_64-darwin20-gcc",
-                    f"--prefix={here}/output/x64-mac"],
+                    f"--prefix={here}/output/x64-mac"] + COMMON_OPTIONS,
                    cwd=build_path,
                    check=True)
     subprocess.run(["make", "-C", build_path, "-j8"], check=True)
@@ -99,7 +109,7 @@ def build_arm64_ios_binaries():
 
     subprocess.run([f"{here}/libvpx/configure",
                     "--target=arm64-darwin-gcc",
-                    f"--prefix={here}/output/arm64-ios"],
+                    f"--prefix={here}/output/arm64-ios"] + COMMON_OPTIONS,
                    cwd=build_path,
                    check=True)
     subprocess.run(["make", "-C", build_path, "-j8"], check=True)
@@ -146,7 +156,7 @@ def build_x64_linux_binaries():
     subprocess.run([f"{here}/libvpx/configure",
                     "--target=x86_64-linux-gcc",
                     "--enable-pic",
-                    f"--prefix={here}/output/x64-linux"],
+                    f"--prefix={here}/output/x64-linux"] + COMMON_OPTIONS,
                    cwd=build_path,
                    check=True)
     subprocess.run(["make", "-C", build_path, "-j8"], check=True)
@@ -159,20 +169,31 @@ def build_wasm32_emscripten():
     if not os.path.exists(build_path):
         os.makedirs(build_path)
 
+    subprocess.run(["emconfigure",
+                    f"{here}/libvpx/configure",
+                    "--target=generic-gnu",
+                    f"--prefix={here}/output/wasm32-emscripten"] + COMMON_OPTIONS,
+                   cwd=build_path,
+                   check=True)
+    subprocess.run(["emmake", "make", "-C", build_path, "-j8"], check=True)
+    subprocess.run(["emmake", "make", "-C", build_path, "install"], check=True)
+
+
+def build_wasm32_emscripten_mt():
+    here = Path(__file__).parent.resolve()
+    build_path = f"{here}/build/wasm32-emscripten-mt"
+    if not os.path.exists(build_path):
+        os.makedirs(build_path)
+
     env = os.environ.copy()
     env["LDFLAGS"] = "-pthread"
 
     subprocess.run(["emconfigure",
                     f"{here}/libvpx/configure",
                     "--target=generic-gnu",
-                    f"--prefix={here}/output/wasm32-emscripten",
+                    f"--prefix={here}/output/wasm32-emscripten-mt",
                     "--extra-cflags=-pthread -s USE_PTHREADS=1",
-                    "--enable-multithread",
-                    "--disable-shared",
-                    "--disable-docs",
-                    "--disable-examples",
-                    "--disable-tools",
-                    "--disable-unit-tests"],
+                    "--enable-multithread"] + COMMON_OPTIONS,
                    cwd=build_path,
                    check=True,
                    env=env)
@@ -198,11 +219,11 @@ def main():
         build_x64_windows_binaries(parser_args.rebuild)
         return
     elif platform.system() == "Darwin":
-        build_arm64_mac_binaries()
-        build_x64_mac_binaries()
-        build_arm64_ios_binaries()
+        # build_arm64_mac_binaries()
+        # build_x64_mac_binaries()
+        # build_arm64_ios_binaries()
         build_arm64_iphonesimulator_binaries()
-        build_wasm32_emscripten()
+        # build_wasm32_emscripten()
         return
     elif platform.system() == "Linux":
         build_x64_linux_binaries()
