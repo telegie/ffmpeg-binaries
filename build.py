@@ -288,10 +288,11 @@ def build_wasm32_emscripten_mt_binaries():
     if not os.path.exists(build_path):
         os.makedirs(build_path)
 
-    llvm_nm = "/opt/homebrew/Cellar/emscripten/3.1.23/libexec/llvm/bin/llvm-nm"
+    # llvm_nm = "/opt/homebrew/Cellar/emscripten/3.1.23/libexec/llvm/bin/llvm-nm"
+    llvm_nm = "/Users/hanseuljun/repos/emsdk/upstream/bin/llvm-nm"
 
-    libvpx_pkgconfig = f"{here}/libvpx-binaries/output/wasm32-emscripten/lib/pkgconfig"
-    opus_pkgconfig = f"{here}/opus-binaries/output/wasm32-emscripten/lib/pkgconfig"
+    libvpx_pkgconfig = f"{here}/libvpx-binaries/output/wasm32-emscripten-mt/lib/pkgconfig"
+    opus_pkgconfig = f"{here}/opus-binaries/output/wasm32-emscripten-mt/lib/pkgconfig"
     pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
 
     subprocess.run(["emconfigure",
@@ -320,7 +321,7 @@ def build_wasm32_emscripten_mt_binaries():
                     "--enable-decoder=libvpx_vp8,libopus",
                     "--enable-parser=vp8,opus",
                     "--enable-pthreads",
-                    "--extra-cflags=-pthread -s USE_PTHREADS=1 -fPIC -O3",
+                    "--extra-cflags=-pthread -fPIC -O3",
                     "--extra-ldflags=-pthread -s INITIAL_MEMORY=33554432",
                     f"--env=PKG_CONFIG_PATH={pkg_config_path}",
                     f"--prefix={here}/output/wasm32-emscripten-mt"],
@@ -345,7 +346,8 @@ def main():
                        "x64-mac",
                        "arm64-ios",
                        "arm64-iphonesimulator",
-                       "wasm32-emscripten"]
+                       "wasm32-emscripten",
+                       "wasm32-emscripten-mt"]
         elif platform.system() == "Linux":
             targets = ["x64-linux"]
         else:
@@ -377,6 +379,8 @@ def main():
         build_arm64_iphonesimulator_binaries()
     if "wasm32-emscripten" in targets:
         build_wasm32_emscripten_binaries()
+    if "wasm32-emscripten-mt" in targets:
+        build_wasm32_emscripten_mt_binaries()
 
 
 if __name__ == "__main__":

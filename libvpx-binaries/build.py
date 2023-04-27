@@ -166,7 +166,7 @@ def build_x64_linux_binaries():
     subprocess.run(["make", "-C", build_path, "install"], check=True)
 
 
-def build_wasm32_emscripten():
+def build_wasm32_emscripten_binaries():
     here = Path(__file__).parent.resolve()
     build_path = f"{here}/build/wasm32-emscripten"
     if not os.path.exists(build_path):
@@ -182,7 +182,7 @@ def build_wasm32_emscripten():
     subprocess.run(["emmake", "make", "-C", build_path, "install"], check=True)
 
 
-def build_wasm32_emscripten_mt():
+def build_wasm32_emscripten_mt_binaries():
     here = Path(__file__).parent.resolve()
     build_path = f"{here}/build/wasm32-emscripten-mt"
     if not os.path.exists(build_path):
@@ -195,7 +195,7 @@ def build_wasm32_emscripten_mt():
                     f"{here}/libvpx/configure",
                     "--target=generic-gnu",
                     f"--prefix={here}/output/wasm32-emscripten-mt",
-                    "--extra-cflags=-pthread -s USE_PTHREADS=1",
+                    "--extra-cflags=-pthread",
                     "--enable-multithread"] + COMMON_OPTIONS,
                    cwd=build_path,
                    check=True,
@@ -218,7 +218,8 @@ def main():
                        "x64-mac",
                        "arm64-ios",
                        "arm64-iphonesimulator",
-                       "wasm32-emscripten"]
+                       "wasm32-emscripten",
+                       "wasm32-emscripten-mt"]
         elif platform.system() == "Linux":
             targets = ["x64-linux"]
         else:
@@ -248,7 +249,9 @@ def main():
     if "arm64-iphonesimulator" in targets:
         build_arm64_iphonesimulator_binaries()
     if "wasm32-emscripten" in targets:
-        build_wasm32_emscripten()
+        build_wasm32_emscripten_binaries()
+    if "wasm32-emscripten-mt" in targets:
+        build_wasm32_emscripten_mt_binaries()
 
 
 if __name__ == "__main__":
