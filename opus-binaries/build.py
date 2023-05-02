@@ -228,6 +228,31 @@ def build_wasm32_emscripten_mt_binaries():
     subprocess.run(["emmake", "make", "install"], cwd=build_path, check=True)
 
 
+def build_wasm32_emscripten_simd_binaries():
+    here = Path(__file__).parent.resolve()
+    build_path = f"{here}/build/wasm32-emscripten-simd"
+    if not os.path.exists(build_path):
+        os.makedirs(build_path)
+
+    env = os.environ.copy()
+    env["CFLAGS"] = "-fPIC -O3 -msimd128"
+
+    subprocess.run(["emconfigure",
+                    f"{here}/opus/configure",
+                    "--disable-shared",
+                    "--disable-asm",
+                    "--disable-intrinsics",
+                    "--disable-doc",
+                    "--disable-extra-programs",
+                    "--disable-stack-protector",
+                    f"--prefix={here}/output/wasm32-emscripten-simd"],
+                   cwd=build_path,
+                   check=True,
+                   env=env)
+    subprocess.run(["emmake", "make", "-j8"], cwd=build_path, check=True)
+    subprocess.run(["emmake", "make", "install"], cwd=build_path, check=True)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--rebuild", action="store_true")
@@ -243,7 +268,8 @@ def main():
                        "arm64-ios",
                        "arm64-iphonesimulator",
                        "wasm32-emscripten",
-                       "wasm32-emscripten-mt"]
+                       "wasm32-emscripten-mt",
+                       "wasm32-emscripten-simd"]
         elif platform.system() == "Linux":
             targets = ["x64-linux"]
         else:
@@ -283,6 +309,8 @@ def main():
         build_wasm32_emscripten_binaries()
     if "wasm32-emscripten-mt" in targets:
         build_wasm32_emscripten_mt_binaries()
+    if "wasm32-emscripten-simd" in targets:
+        build_wasm32_emscripten_simd_binaries()
 
 
 if __name__ == "__main__":

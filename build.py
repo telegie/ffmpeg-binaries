@@ -331,6 +331,54 @@ def build_wasm32_emscripten_mt_binaries():
     subprocess.run(["emmake", "make", "-C", build_path, "install"], check=True)
 
 
+def build_wasm32_emscripten_simd_binaries():
+    here = Path(__file__).parent.resolve()
+    build_path = f"{here}/build/wasm32-emscripten-simd"
+    if not os.path.exists(build_path):
+        os.makedirs(build_path)
+
+    llvm_nm = "/Users/hanseuljun/repos/emsdk/upstream/bin/llvm-nm"
+
+    libvpx_pkgconfig = f"{here}/libvpx-binaries/output/wasm32-emscripten-simd/lib/pkgconfig"
+    opus_pkgconfig = f"{here}/opus-binaries/output/wasm32-emscripten-simd/lib/pkgconfig"
+    pkg_config_path = f"{libvpx_pkgconfig}:{opus_pkgconfig}"
+
+    subprocess.run(["emconfigure",
+                    f"{here}/FFmpeg/configure",
+                    "--target-os=none",
+                    "--arch=x86_32",
+                    "--enable-cross-compile",
+                    f"--nm={llvm_nm}",
+                    "--ar=emar",
+                    "--ranlib=emranlib",
+                    "--cc=emcc",
+                    "--cxx=em++",
+                    "--objcc=emcc",
+                    "--dep-cc=emcc",
+                    "--disable-debug",
+                    "--disable-pthreads",
+                    "--disable-x86asm",
+                    "--disable-inline-asm",
+                    "--disable-stripping",
+                    "--disable-programs",
+                    "--disable-doc",
+                    "--disable-everything",
+                    "--enable-libvpx",
+                    "--enable-libopus",
+                    "--enable-encoder=libvpx_vp8,libopus",
+                    "--enable-decoder=libvpx_vp8,libopus",
+                    "--enable-parser=vp8,opus",
+                    "--disable-pthreads",
+                    "--extra-cflags=-fPIC -O3 -msimd128",
+                    "--extra-ldflags=-s INITIAL_MEMORY=33554432",
+                    f"--env=PKG_CONFIG_PATH={pkg_config_path}",
+                    f"--prefix={here}/output/wasm32-emscripten-simd"],
+                   cwd=build_path,
+                   check=True)
+    subprocess.run(["emmake", "make", "-C", build_path, "-j8"], check=True)
+    subprocess.run(["emmake", "make", "-C", build_path, "install"], check=True)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--rebuild", action="store_true")
@@ -347,7 +395,8 @@ def main():
                        "arm64-ios",
                        "arm64-iphonesimulator",
                        "wasm32-emscripten",
-                       "wasm32-emscripten-mt"]
+                       "wasm32-emscripten-mt",
+                       "wasm32-emscripten-simd"]
         elif platform.system() == "Linux":
             targets = ["x64-linux"]
         else:
@@ -381,6 +430,8 @@ def main():
         build_wasm32_emscripten_binaries()
     if "wasm32-emscripten-mt" in targets:
         build_wasm32_emscripten_mt_binaries()
+    if "wasm32-emscripten-simd" in targets:
+        build_wasm32_emscripten_simd_binaries()
 
 
 if __name__ == "__main__":
