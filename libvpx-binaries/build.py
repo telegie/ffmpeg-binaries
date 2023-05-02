@@ -214,7 +214,7 @@ def build_wasm32_emscripten_simd_binaries():
     env["LDFLAGS"] = "-msimd128"
 
     subprocess.run(["emconfigure",
-                    f"{here}/libvpx/configure",
+                    f"{here}/brion-libvpx/configure",
                     "--target=generic-gnu",
                     f"--prefix={here}/output/wasm32-emscripten-simd",
                     "--extra-cflags=-msimd128"] + COMMON_OPTIONS,

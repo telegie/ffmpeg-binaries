@@ -7,3 +7,6 @@
 [submodule "opus-binaries/opus"]
 	path = opus-binaries/opus
 	url = https://github.com/xiph/opus.git
+[submodule "libvpx-binaries/brion-libvpx"]
+	path = libvpx-binaries/brion-libvpx
+	url = https://github.com/brion/libvpx.git
